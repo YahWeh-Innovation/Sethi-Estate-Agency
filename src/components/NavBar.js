@@ -72,16 +72,16 @@ const Header = () => {
             </li>
             <li className={activeSection === "#properties" ? "active" : ""}>
               <div className="dropdown">
-                <Link href="#properties">Properties</Link>
-                <div className="dropdown-content">
+                <Link href="/properties/search">Properties</Link>
+                {/* <div className="dropdown-content">
                   <Link href="/properties/search">All Properties</Link>
                   <Link href="/latest-properties">Latest Properties</Link>
-                </div>
+                </div> */}
               </div>
             </li>
-            <li className={activeSection === "#blogs" ? "active" : ""}>
+            {/* <li className={activeSection === "#blogs" ? "active" : ""}>
               <Link href="#blogs">Blogs</Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
 
