@@ -65,10 +65,10 @@ const Header = () => {
         <nav className="nav">
           <ul>
             <li className={activeSection === "#hero" ? "active" : ""}>
-              <Link href="#hero">Home</Link>
+              <Link href="">Home</Link>
             </li>
             <li className={activeSection === "#features" ? "active" : ""}>
-              <Link href="#features">About Us</Link>
+              <Link href="">About Us</Link>
             </li>
             <li className={activeSection === "#properties" ? "active" : ""}>
               <div className="dropdown">
