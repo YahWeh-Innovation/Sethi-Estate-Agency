@@ -9,8 +9,6 @@ const HeroContact = () => {
   const phoneNumber = "+919999634517";
   const whatsappNumber = "+919999634517";
   const email = "sethiestateagency113@gmail.com";
-
-  // Click handlers for each button
   const handleCallClick = () => {
     window.location.href = `tel:${phoneNumber}`;
   };
@@ -30,7 +28,6 @@ const HeroContact = () => {
       gap={0}
       sx={{ alignItems: "center" }}
     >
-      {/* First Button (Call) */}
       <Button
         sx={{
           width: "47px",
@@ -52,8 +49,6 @@ const HeroContact = () => {
       >
         <PhoneIcon sx={{ width: "20px", height: "20px", color: "#2F1D19" }} />
       </Button>
-
-      {/* Second Button (WhatsApp) */}
       <Button
         sx={{
           width: "47px",
@@ -78,7 +73,6 @@ const HeroContact = () => {
         />
       </Button>
 
-      {/* Third Button (Email) */}
       <Button
         sx={{
           width: "128px",
