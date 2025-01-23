@@ -11,6 +11,7 @@ const HeroSection = () => {
         height: "100vh",
         position: "relative",
         overflow: "hidden",
+        marginTop:"64px",
         backgroundImage: 'url("https://res.cloudinary.com/dkoezhi9u/image/upload/v1737480349/hero_pjv4yv.svg")',
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
