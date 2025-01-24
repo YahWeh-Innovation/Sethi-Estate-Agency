@@ -41,10 +41,23 @@ const DreamProperty = () => {
       </Box>
     );
   }
-
   return (
     <Box>
-      <Typography marginX={8} variant="h4" component="h4" fontWeight="900">
+      <Typography
+        marginX={4}
+        variant="h4"
+        component="h4"
+        fontWeight="900"
+        sx={{
+          fontSize: {
+            xs: "20px",
+            sm: "24px",
+            md: "36px",
+            lg: "40px",
+            xl: "44px",
+          },
+        }}
+      >
         Find Your Dream Property in Your Cities
       </Typography>
       <Box marginY={8}>

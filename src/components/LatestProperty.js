@@ -126,7 +126,6 @@ const LatestProperty = () => {
       <Box
         sx={{
           position: "absolute",
-          // top: "-10px",
           top:{xs:"-10px",md:"10px"},
           right: "5%",
           display: "flex",
