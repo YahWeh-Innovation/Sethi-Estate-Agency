@@ -66,7 +66,7 @@ const Testimonial = () => {
         py: { xs: 3, md: 6 },
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Box textAlign="center" mb={4}>
           <Typography
             variant="h3"

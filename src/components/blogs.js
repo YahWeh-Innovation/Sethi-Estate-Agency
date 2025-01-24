@@ -1,5 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Card, CardMedia, Box, Typography, IconButton } from "@mui/material";
+import {
+  Card,
+  CardMedia,
+  Box,
+  Typography,
+  IconButton,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import {
   CloudUploadOutlined as CloudUploadOutlinedIcon,
   ArrowBack as ArrowBackIcon,
@@ -14,6 +22,9 @@ const Blogs = () => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(false);
   const sliderRef = useRef(null);
+  const theme = useTheme();
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -31,8 +42,14 @@ const Blogs = () => {
 
   const scrollLeft = () => {
     if (sliderRef.current) {
+      const scrollAmount = isMediumScreen
+        ? isSmallScreen
+          ? window.innerWidth
+          : window.innerWidth / 2
+        : 380;
+
       sliderRef.current.scrollBy({
-        left: -380,
+        left: -scrollAmount,
         behavior: "smooth",
       });
     }
@@ -40,8 +57,14 @@ const Blogs = () => {
 
   const scrollRight = () => {
     if (sliderRef.current) {
+      const scrollAmount = isMediumScreen
+        ? isSmallScreen
+          ? window.innerWidth
+          : window.innerWidth / 2
+        : 380;
+
       sliderRef.current.scrollBy({
-        left: 380,
+        left: scrollAmount,
         behavior: "smooth",
       });
     }
@@ -50,11 +73,12 @@ const Blogs = () => {
   return (
     <Box
       sx={{
-        padding: "30px",
-        maxWidth: "1180px",
+        padding: { xs: "15px 10px", md: "30px 72px" },
         margin: "auto",
         display: "flex",
-        alignItems: "flex-start",
+        flexDirection: { xs: "column", md: "row" },
+        alignItems: "stretch",
+        position: "relative",
       }}
     >
       {error ? (
@@ -65,18 +89,19 @@ const Blogs = () => {
         <>
           <Box
             sx={{
-              width: "360px",
-              height: "360px",
+              width: { xs: "100%", md: "300px", lg: "360px" },
+              height: { xs: "60px", sm: "100px", md: "360px" },
               backgroundColor: "#d9c9af",
               borderRadius: "5px",
               position: "relative",
-              marginRight: "30px",
+              marginRight: { xs: "0", md: "30px" },
+              marginBottom: { xs: "20px", md: "0" },
             }}
           >
             <Typography
               sx={{
                 color: "#2f1d19",
-                fontSize: "24px",
+                fontSize: { xs: "16px", md: "24px" },
                 fontWeight: "bold",
                 fontFamily: "'Roboto', sans-serif",
                 position: "absolute",
@@ -84,29 +109,56 @@ const Blogs = () => {
                 top: "50%",
                 transform: "translate(-50%, -50%)",
                 textAlign: "center",
+                padding: { xs: "0 15px", md: "0" },
               }}
             >
               Latest Blogs From Us
             </Typography>
           </Box>
 
-          <Box sx={{ position: "relative", flex: 1 }}>
-            <IconButton
-              sx={{
-                position: "absolute",
-                left: "-450px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                zIndex: 10,
-                backgroundColor: "#fff",
-                borderRadius: "50%",
-                padding: "8px",
-                boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
-              }}
-              onClick={scrollLeft}
-            >
-              <ArrowBackIcon sx={{ color: "#B18C5E" }} />
-            </IconButton>
+          <Box
+            sx={{
+              position: "relative",
+              flex: 1,
+              width: { xs: "100%", md: "auto" },
+            }}
+          >
+            {!isMediumScreen && (
+              <>
+                <IconButton
+                  sx={{
+                    position: "absolute",
+                    left: "-450px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    zIndex: 10,
+                    backgroundColor: "#fff",
+                    borderRadius: "50%",
+                    padding: "8px",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                  }}
+                  onClick={scrollLeft}
+                >
+                  <ArrowBackIcon sx={{ color: "#B18C5E" }} />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    position: "absolute",
+                    right: "-60px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    zIndex: 10,
+                    backgroundColor: "#fff",
+                    borderRadius: "50%",
+                    padding: "8px",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                  }}
+                  onClick={scrollRight}
+                >
+                  <ArrowForwardIcon sx={{ color: "#B18C5E" }} />
+                </IconButton>
+              </>
+            )}
 
             <Box
               ref={sliderRef}
@@ -114,7 +166,8 @@ const Blogs = () => {
                 display: "flex",
                 overflowX: "hidden",
                 scrollBehavior: "smooth",
-                width: "750px",
+                width: "100%",
+                gap: "20px",
                 "&::-webkit-scrollbar": {
                   display: "none",
                 },
@@ -123,83 +176,119 @@ const Blogs = () => {
               {posts.map((post) => (
                 <Box
                   key={post._id}
-                  sx={{ flex: "0 0 auto", width: "360px", marginRight: "20px" }}
+                  sx={{
+                    flex: { xs: "0 0 100%", md: "0 0 calc(50% - 10px)" },
+                    width: "100%",
+                    maxWidth: { xs: "100%", md: "380px" },
+                  }}
                 >
-                  <Link href={`/blogs/${post.slug}`} passHref>
-                    <Card
-                      sx={{
-                        position: "relative",
-                        overflow: "hidden",
-                        height: "360px",
-                        "&:hover .title-overlay": {
-                          opacity: 1,
-                          transform: "translateY(0)",
-                        },
-                      }}
-                    >
+                  <Card
+                    sx={{
+                      position: "relative",
+                      overflow: "hidden",
+                      height: { xs: "250px", md: "360px" },
+                      "&:hover .title-overlay": {
+                        opacity: 1,
+                        transform: "translateY(0)",
+                      },
+                    }}
+                  >
+                    <Link href={`/blogs/${post.slug}`} passHref>
                       <CardMedia
                         component="img"
                         src={post.blogImageBanner}
                         alt={post.title}
-                        sx={{ width: "100%", height: "100%", objectFit: "cover" }}
-                      />
-                      <Box
-                        className="title-overlay"
                         sx={{
-                          position: "absolute",
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          backgroundColor: "rgba(255, 255, 255, 0.6)",
-                          height: "90px",
-                          padding: "10px",
-                          borderTopLeftRadius: "5px",
-                          borderTopRightRadius: "5px",
-                          opacity: 0,
-                          transform: "translateY(20px)",
-                          transition: "opacity 0.3s, transform 0.3s",
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </Link>
+                    <Box
+                      className="title-overlay"
+                      sx={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        backgroundColor: "rgba(255, 255, 255, 0.6)",
+                        height: { xs: "70px", md: "90px" },
+                        padding: "10px",
+                        borderTopLeftRadius: "5px",
+                        borderTopRightRadius: "5px",
+                        opacity: 0,
+                        transform: "translateY(20px)",
+                        transition: "opacity 0.3s, transform 0.3s",
+                      }}
+                    >
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          fontWeight: "bold",
+                          color: "#2F1D19",
+                          fontSize: { xs: "14px", md: "16px" },
                         }}
                       >
+                        {truncateText(post.title, 50)}
+                      </Typography>
+                      <Box display="flex" alignItems="center">
+                        <CloudUploadOutlinedIcon
+                          sx={{
+                            color: "#D9C9AF",
+                            marginRight: "5px",
+                            fontSize: { xs: "16px", md: "default" },
+                          }}
+                        />
                         <Typography
-                          variant="body1"
-                          sx={{ fontWeight: "bold", color: "#2F1D19" }}
+                          variant="body2"
+                          sx={{
+                            color: "#2F1D19",
+                            fontSize: { xs: "12px", md: "default" },
+                          }}
                         >
-                          {truncateText(post.title, 50)}
+                          {formatDate(post.createdAt)}
                         </Typography>
-                        <Box display="flex" alignItems="center">
-                          <CloudUploadOutlinedIcon
-                            sx={{ color: "#D9C9AF", marginRight: "5px" }}
-                          />
-                          <Typography
-                            variant="body2"
-                            sx={{ color: "#2F1D19" }}
-                          >
-                            {formatDate(post.createdAt)}
-                          </Typography>
-                        </Box>
                       </Box>
-                    </Card>
-                  </Link>
+                    </Box>
+                  </Card>
                 </Box>
               ))}
             </Box>
 
-            <IconButton
-              sx={{
-                position: "absolute",
-                right: "-60px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                zIndex: 10,
-                backgroundColor: "#fff",
-                borderRadius: "50%",
-                padding: "8px",
-                boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
-              }}
-              onClick={scrollRight}
-            >
-              <ArrowForwardIcon sx={{ color: "#B18C5E" }} />
-            </IconButton>
+            {isMediumScreen && (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: "15px",
+                  gap: "20px",
+                }}
+              >
+                <IconButton
+                  sx={{
+                    backgroundColor: "#fff",
+                    borderRadius: "50%",
+                    padding: "8px",
+
+                  }}
+                  onClick={scrollLeft}
+                >
+                  <ArrowBackIcon sx={{ color: "#B18C5E" }} />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    backgroundColor: "#fff",
+                    borderRadius: "50%",
+                    padding: "8px",
+                  }}
+                  onClick={scrollRight}
+                >
+                  <ArrowForwardIcon sx={{ color: "#B18C5E" }} />
+                </IconButton>
+              </Box>
+            )}
           </Box>
         </>
       ) : (
