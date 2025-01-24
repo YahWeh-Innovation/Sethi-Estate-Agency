@@ -18,7 +18,20 @@ const HeroSection = () => {
     >
       <Grid container spacing={4} alignItems="center">
         <Grid item xs={12} md={6}>
-          <Typography variant="h2" sx={{ fontWeight: "bold", marginBottom: 2 }}>
+          <Typography
+            variant="h2"
+            sx={{
+              fontWeight: "bold",
+              marginBottom: 2,
+              fontSize: {
+                xs: "40px",
+                sm: "44px",
+                md: "36px",
+                lg: "60px",
+                xl: "72px",
+              },
+            }}
+          >
             Smart Living Style
             <br />
             For Smart People
