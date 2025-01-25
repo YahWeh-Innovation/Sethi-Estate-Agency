@@ -65,10 +65,9 @@ export default function ContactForm() {
       setErrors(formErrors);
       return;
     }
-
     setIsSubmitting(true);
     try {
-      const response = await axios.post("/api/contact/create", formData);
+      await axios.post("/api/contact/create", formData);
       setFormData({
         firstName: "",
         lastName: "",
@@ -85,26 +84,35 @@ export default function ContactForm() {
 
   return (
     <Box
-      sx={{ maxWidth: "100%", mt: 5, px: 2 }}
+      sx={{ maxWidth: "100%", mt: 5, px: { xs: 2, sm: 4, md: 6 } }}
       component="form"
       onSubmit={handleSubmit}
     >
-      <Grid container spacing={2} alignItems="center" justifyContent="center">
-        <Grid item xs={12} md={6} sx={{ display: { xs: "none", md: "block" } }}>
+      <Grid container spacing={3} alignItems="center" justifyContent="center">
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{
+            display: { xs: "none", md: "block" },
+            textAlign: "center",
+          }}
+        >
           <Box
             component="img"
-            src="https://res.cloudinary.com/dkoezhi9u/image/upload/v1737480380/left_wcpjrq.png"
+            src="https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&w=600"
             alt="Construction worker"
             sx={{
               width: "100%",
-              height: "70vh",
+              height: { md: "60vh", lg: "70vh" },
+              objectFit: "cover",
               borderRadius: "8px",
             }}
           />
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Box sx={{ maxWidth: 500, mx: "auto" }}>
+          <Box sx={{ maxWidth: { xs: "100%", md: 500 }, mx: "auto" }}>
             <Typography variant="h4" component="h1" gutterBottom>
               Contact us
             </Typography>
@@ -181,7 +189,8 @@ export default function ContactForm() {
               disabled={isSubmitting}
               sx={{
                 mt: 3,
-                backgroundColor: "#4a4a4a",
+                width: "100%",
+                backgroundColor: "rgba(47, 29, 25, 1)",
                 color: "#fff",
                 "&:hover": { backgroundColor: "#333" },
               }}
@@ -192,7 +201,7 @@ export default function ContactForm() {
               variant="caption"
               color="text.secondary"
               display="block"
-              sx={{ mt: 1 }}
+              sx={{ mt: 1, textAlign: "center" }}
             >
               We don’t sell your email and spam.
             </Typography>
