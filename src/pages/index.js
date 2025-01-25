@@ -4,9 +4,9 @@ import HeroSection from "../components/HeroSection";
 import Testimonial from "../components/Testimonial";
 import Blogs from "../components/blogs";
 import ContactForm from "../components/ContactForm";
-import LatestProperty from "../components/LatestProperty"
+import LatestProperty from "../components/LatestProperty";
 import DreamProperty from "../components/DreamProperty";
-
+import Footer from "../components/Footer";
 const Home = () => {
   return (
     <div className="scrollable-content">
@@ -19,10 +19,10 @@ const Home = () => {
         <HeroSection />
       </section>
       <section>
-        <DreamProperty/>
+        <DreamProperty />
       </section>
       <section>
-        <LatestProperty/>
+        <LatestProperty />
       </section>
       <section>
         <Testimonial />
@@ -30,8 +30,11 @@ const Home = () => {
       <section>
         <Blogs />
       </section>
-       <section>
+      <section>
         <ContactForm />
+      </section>
+      <section>
+        <Footer />
       </section>
     </div>
   );

@@ -1,328 +1,162 @@
+import React from "react";
+import { Box, Grid, Typography, Link, IconButton } from "@mui/material";
 import { Email, Phone, LocationOn } from "@mui/icons-material";
-import { useState, Suspense } from "react";
-import { Box, Typography, Modal, Button } from "@mui/material";
-import Link from "next/link";
+import { Facebook, Twitter, YouTube, LinkedIn } from "@mui/icons-material";
 
-const Footer = () => {
-  const [openModal, setOpenModal] = useState(false);
-  const [modalContent, setModalContent] = useState("");
-
-  const handleOpen = (content) => {
-    setModalContent(content);
-    setOpenModal(true);
-  };
-
-  const handleClose = () => {
-    setOpenModal(false);
-    setModalContent("");
-  };
-
+export default function Footer() {
   return (
     <Box
-      component="footer"
       sx={{
-        backgroundColor: "#2F1D19",
-        color: "white",
-        width: "100vw",
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        margin: 0,
-        padding: "70px",
-        boxSizing: "border-box",
-        minHeight: "100px",
+        backgroundColor: "#2B211F",
+        color: "rgb(245, 225, 225)",
+        py: 4,
+        px: { xs: 2, sm: 4, md: 12 },
+        marginTop: 2,
       }}
     >
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          maxWidth: "1440px",
-          margin: "0 auto",
-          gap: "50px",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            justifyContent: "center",
-            flex: 1,
-            margin: 0,
-          }}
-        >
-          <Typography variant="h4" sx={{ marginBottom: "20px" }}>
+      <Grid container spacing={4} justifyContent="center">
+        <Grid item xs={12} sm={6} md={3}>
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ fontWeight: "bold", fontSize: { xs: "16px", sm: "18px" } }}
+          >
             SETHI-ESTATE-AGENCY
           </Typography>
-          <Typography
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              fontSize: "1.5rem",
-              marginBottom: "10px",
-            }}
-          >
-            <LocationOn sx={{ marginRight: 1 }} />
-            2118 Thornridge Cir., Dubai, UAE 35624
-          </Typography>
-          <Typography
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              fontSize: "1.5rem",
-              marginBottom: "10px",
-              fontSize: "1.5rem",
-              marginBottom: "10px",
-            }}
-          >
-            <Phone sx={{ marginRight: 1 }} /> +91-9999634517
-          </Typography>
-          <Typography
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              fontSize: "1.5rem",
-              marginBottom: "10px",
-              fontSize: "1.5rem",
-              marginBottom: "10px",
-            }}
-          >
-            <Email sx={{ marginRight: 1 }} /> sethiestateagency113@gmail.com
-          </Typography>
-        </Box>
-
-        <Box
-          px={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "20px",
-            width: "100%",
-            padding: 2, // Optional: adds padding around the grid
-          }}
-        >
-          <Box
-            sm={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              marginBottom: "20px",
-              textalign: "left",
-            }}
-          >
-            <Typography variant="h5" sx={{ marginBottom: "20px" }}>
-              QUICK LINKS
-            </Typography>
-            <Link href="/hero" underline="none" passHref>
-              <Typography
-                sx={{
-                  cursor: "pointer",
-                  color: "white",
-                  fontSize: "1.5rem",
-                  textDecoration: "none",
-                  "&:hover": { color: "#ccc" },
-                }}
-              >
-                Home
-              </Typography>
-            </Link>
-            <Link href="/About" passHref>
-              <Typography
-                sx={{
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  color: "white",
-                  fontSize: "1.5rem",
-                  "&:hover": { color: "#ccc" },
-                }}
-              >
-                About
-              </Typography>
-            </Link>
-            <Link href="/Properties" passHref>
-              <Typography
-                sx={{
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  color: "white",
-                  fontSize: "1.5rem",
-                  "&:hover": { color: "#ccc" },
-                }}
-              >
-                Project
-              </Typography>
-            </Link>
-            <Link href="/contact" passHref>
-              <Typography
-                sx={{
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  color: "white",
-                  fontSize: "1.5rem",
-                  "&:hover": { color: "#ccc" },
-                }}
-              >
-                Contact Us
-              </Typography>
-            </Link>
-          </Box>
-
-          <Box px={{ textalign: "left" }}>
+          <Box>
             <Typography
-              variant="h5"
-              sx={{ marginBottom: "20px", "&:hover": { color: "#ccc" } }}
+              variant="body2"
+              display="flex"
+              alignItems="center"
+              gutterBottom
+              sx={{ fontSize: { xs: "12px", sm: "14px" } }}
             >
-              LEGAL LINKS
+              <LocationOn fontSize="small" sx={{ mr: 1 }} />
+              2118 Thornridge Cir. Dubai, UAE 35624
             </Typography>
             <Typography
-              px={{
-                textDecoration: "none",
-                cursor: "pointer",
-                color: "white",
-                fontSize: "1.5rem",
-                "&:hover": { color: "#ccc" },
-              }}
-              onClick={() => handleOpen("Terms")}
+              variant="body2"
+              display="flex"
+              alignItems="center"
+              gutterBottom
+              sx={{ fontSize: { xs: "12px", sm: "14px" } }}
             >
-              Terms
+              <Phone fontSize="small" sx={{ mr: 1 }} />
+              +33 415 65356 - 9
             </Typography>
             <Typography
-              sx={{
-                textDecoration: "none",
-                cursor: "pointer",
-                color: "white",
-                fontSize: "1.5rem",
-                "&:hover": { color: "#ccc" },
-              }}
-              onClick={() => handleOpen("Conditions")}
+              variant="body2"
+              display="flex"
+              alignItems="center"
+              gutterBottom
+              sx={{ fontSize: { xs: "12px", sm: "14px" } }}
             >
-              Conditions
-            </Typography>
-            <Typography
-              sx={{
-                textDecoration: "none",
-                cursor: "pointer",
-                color: "white",
-                fontSize: "1.5rem",
-                "&:hover": { color: "#ccc" },
-              }}
-              onClick={() => handleOpen("Privacy Policy")}
-            >
-              Privacy Policy
+              <Email fontSize="small" sx={{ mr: 1 }} />
+              contact@sethi-estate-agency.com
             </Typography>
           </Box>
-
-          <Box sx={{ textalign: "left" }}>
-            <Typography variant="h5" sx={{ marginBottom: "20px" }}>
-              SOCIAL MEDIA
-            </Typography>
-            <Link href="https://www.facebook.com" passHref>
-              <Typography
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ fontWeight: "bold", fontSize: { xs: "16px", sm: "18px" } }}
+          >
+            QUICK LINKS
+          </Typography>
+          <Box>
+            {["Home", "About", "Project", "Contact"].map((link, index) => (
+              <Link
+                key={index}
+                href="#"
+                underline="none"
+                color="inherit"
                 sx={{
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  color: "white",
-                  fontSize: "1.5rem",
-                  "&:hover": { color: "#ccc" },
+                  display: "block",
+                  mb: 1,
+                  fontSize: { xs: "12px", sm: "14px" },
                 }}
               >
-                Facebook
-              </Typography>
-            </Link>
-
-            <Link href="https://www.twitter.com" passHref>
-              <Typography
-                sx={{
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  color: "white",
-                  fontSize: "1.5rem",
-                  "&:hover": { color: "#ccc" },
-                }}
-              >
-                Twitter
-              </Typography>
-            </Link>
-
-            <Link href="https://www.youtube.com" passHref>
-              <Typography
-                sx={{
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  color: "white",
-                  fontSize: "1.5rem",
-                  color: "white",
-                  "&:hover": { color: "#ccc" },
-                }}
-              >
-                YouTube
-              </Typography>
-            </Link>
-
-            <Link href="https://www.linkedin.com" passHref>
-              <Typography
-                sx={{
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  color: "white",
-                  fontSize: "1.5rem",
-                  "&:hover": { color: "#ccc" },
-                }}
-              >
-                LinkedIn
-              </Typography>
-            </Link>
+                {link}
+              </Link>
+            ))}
           </Box>
-        </Box>
-      </Box>
+        </Grid>
 
-      <Box
+        <Grid item xs={12} sm={6} md={3}>
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ fontWeight: "bold", fontSize: { xs: "16px", sm: "18px" } }}
+          >
+            LEGAL LINKS
+          </Typography>
+          <Box>
+            {["Terms", "Conditions", "Policy"].map((link, index) => (
+              <Link
+                key={index}
+                href="#"
+                underline="none"
+                color="inherit"
+                sx={{
+                  display: "block",
+                  mb: 1,
+                  fontSize: { xs: "12px", sm: "14px" },
+                }}
+              >
+                {link}
+              </Link>
+            ))}
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <Typography
+            variant="h6"
+            gutterBottom
+            sx={{ fontWeight: "bold", fontSize: { xs: "16px", sm: "18px" } }}
+          >
+            SOCIAL MEDIA
+          </Typography>
+          <Box display="flex" gap={2}>
+            <IconButton
+              href="#"
+              sx={{ color: "inherit", fontSize: { xs: "18px", sm: "24px" } }}
+            >
+              <Facebook />
+            </IconButton>
+            <IconButton
+              href="#"
+              sx={{ color: "inherit", fontSize: { xs: "18px", sm: "24px" } }}
+            >
+              <Twitter />
+            </IconButton>
+            <IconButton
+              href="#"
+              sx={{ color: "inherit", fontSize: { xs: "18px", sm: "24px" } }}
+            >
+              <YouTube />
+            </IconButton>
+            <IconButton
+              href="#"
+              sx={{ color: "inherit", fontSize: { xs: "18px", sm: "24px" } }}
+            >
+              <LinkedIn />
+            </IconButton>
+          </Box>
+        </Grid>
+      </Grid>
+
+      <Typography
+        variant="body2"
+        align="center"
         sx={{
-          marginTop: "30px",
-          marginBottom: "0px",
-          fontSize: "12px",
-          textAlign: "center",
-          width: "100%",
+          mt: 4,
+          fontSize: { xs: "12px", sm: "14px" },
+          color: "rgba(255, 255, 255, 0.7)",
         }}
       >
-        <Typography>© 2024 Sethi Estate Agency</Typography>
-      </Box>
-
-      <Modal
-        open={openModal}
-        onClose={handleClose}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-      >
-        <Box sx={{ backgroundcolor: "white", padding: "20px" }}>
-          <Typography variant="h6" id="modal-title">
-            {modalContent}
-          </Typography>
-          <Typography id="modal-description">
-            This is the content for {modalContent}.
-          </Typography>
-          <Button
-            onClick={handleClose}
-            sx={{
-              backgroundColor: "#2f1d19", 
-              color: "white", 
-              padding: "10px 20px", 
-              border: "none",
-              cursor: "pointer", 
-              width: "100%", 
-              "&:hover": {
-                backgroundColor: "#4a3b32", 
-              },
-            }}
-          >
-            Close
-          </Button>
-        </Box>
-      </Modal>
+        Copyright © 2024 sethi-estate-agency.
+      </Typography>
     </Box>
   );
-};
-
-export default Footer;
+}
