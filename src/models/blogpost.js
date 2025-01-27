@@ -11,10 +11,19 @@ const BlogPostSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    content: {
-      type: String,
-      required: true,
-    },
+    content: [
+      {
+        type: {
+          type: String,
+          enum: ["text", "image"],
+          required: true,
+        },
+        data: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     author: {
       name: {
         type: String,
@@ -32,13 +41,10 @@ const BlogPostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    blogImageInBetween: {
-      type: String,
-    },
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 export default mongoose.models.BlogPost ||

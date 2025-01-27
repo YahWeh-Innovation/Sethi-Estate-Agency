@@ -107,6 +107,7 @@ export default function ContactForm() {
               height: { md: "60vh", lg: "70vh" },
               objectFit: "cover",
               borderRadius: "8px",
+              paddingY:"15px",
             }}
           />
         </Grid>
