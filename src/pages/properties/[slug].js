@@ -11,7 +11,9 @@ import HomeIcon from "@mui/icons-material/Home";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import axios from "axios";
 import LatestProperty from "../../components/LatestProperty";
-
+import Navbar from "../../components/NavBar";
+import Footer from "../../components/Footer";
+import PropertiesSideBar from "../../components/properties/propertiesSideBar";
 const propertyPage = () => {
   const router = useRouter();
   const theme = useTheme();
@@ -66,143 +68,174 @@ const propertyPage = () => {
   ];
 
   return (
-    <Box padding={isSmallScreen ? 2 : 4}>
-      {loading ? (
-        <Typography>Loading...</Typography>
-      ) : (
-        propertyData && (
-          <>
-            <Box>
-              <ImageTile images={propertyData.imageUrl} />
-            </Box>
-            <Box
-              marginY={2}
-              sx={{
-                display: "flex",
-                flexDirection: isSmallScreen ? "column" : "row",
-              }}
-            >
-              <Box width={isSmallScreen ? "100%" : "75%"}>
-                <Box width="100%" borderBottom="1px solid gray">
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 2,
-                      flexWrap: isSmallScreen ? "wrap" : "nowrap",
-                    }}
-                  >
-                    <RoomIcon />
-                    <Typography
-                      variant="h5"
-                      component="h5"
-                      sx={{ fontWeight: 900 }}
+    <Box>
+      <Box sx={{ margin: "72px" }}>
+        <Navbar />
+      </Box>
+      <Box
+        padding={isSmallScreen ? 1 : 4}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+        }}
+      >
+        {loading ? (
+          <Typography>Loading...</Typography>
+        ) : (
+          propertyData && (
+            <>
+              <Box>
+                <ImageTile images={propertyData.imageUrl} />
+              </Box>
+              <Box
+                marginY={2}
+                sx={{
+                  display: "flex",
+                  flexDirection: isSmallScreen ? "column" : "row",
+                }}
+              >
+                <Box width={isSmallScreen ? "100%" : "75%"}>
+                  <Box width="100%" borderBottom="1px solid gray">
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: 2,
+                        flexWrap: isSmallScreen ? "wrap" : "nowrap",
+                      }}
                     >
-                      {propertyData.address?.street},{" "}
-                      {propertyData.address?.city},{" "}
-                      {propertyData.address?.state}
-                    </Typography>
-                  </Box>
+                      <RoomIcon />
+                      <Typography
+                        variant="h5"
+                        component="h5"
+                        sx={{ fontWeight: 900 }}
+                      >
+                        {propertyData.address?.street},{" "}
+                        {propertyData.address?.city},{" "}
+                        {propertyData.address?.state}
+                      </Typography>
+                    </Box>
 
+                    <Box
+                      marginY={2}
+                      sx={{
+                        display: "flex",
+                        flexDirection: isSmallScreen ? "column" : "row",
+                      }}
+                    >
+                      <Box width={isSmallScreen ? "100%" : "50%"}>
+                        <Typography sx={{ color: "gray", fontSize: "14px" }}>
+                          Start From &#8377; {propertyData.price}
+                        </Typography>
+                      </Box>
+                      <Box
+                        width={isSmallScreen ? "100%" : "50%"}
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: 1,
+                          justifyContent: isSmallScreen
+                            ? "flex-start"
+                            : "center",
+                          color: "gray",
+                        }}
+                      >
+                        <AspectRatioIcon />
+                        {propertyData.area?.total} sqft
+                      </Box>
+                    </Box>
+                  </Box>
                   <Box
-                    marginY={2}
                     sx={{
                       display: "flex",
                       flexDirection: isSmallScreen ? "column" : "row",
                     }}
                   >
-                    <Box width={isSmallScreen ? "100%" : "50%"}>
-                      <Typography sx={{ color: "gray", fontSize: "14px" }}>
-                        Start From &#8377; {propertyData.price}
+                    <Box paddingY={2} width={isSmallScreen ? "100%" : "30%"}>
+                      <Stack spacing={3}>
+                        {infoItems.map((item, index) => (
+                          <Stack
+                            direction="row"
+                            spacing={2}
+                            alignItems="center"
+                            key={index}
+                          >
+                            {item.icon}
+                            <Typography fontWeight={900} variant="body1">
+                              {item.text}
+                            </Typography>
+                          </Stack>
+                        ))}
+                      </Stack>
+                    </Box>
+                    <Box paddingTop={2} width={isSmallScreen ? "100%" : "70%"}>
+                      <Typography
+                        fontWeight={500}
+                        variant="h5"
+                        component="h5"
+                        sx={{ fontWeight: "900", color: "black" }}
+                      >
+                        Property Description
                       </Typography>
-                    </Box>
-                    <Box
-                      width={isSmallScreen ? "100%" : "50%"}
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: 1,
-                        justifyContent: isSmallScreen ? "flex-start" : "center",
-                        color: "gray",
-                      }}
-                    >
-                      <AspectRatioIcon />
-                      {propertyData.area?.total} sqft
-                    </Box>
-                  </Box>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: isSmallScreen ? "column" : "row",
-                  }}
-                >
-                  <Box paddingY={2} width={isSmallScreen ? "100%" : "30%"}>
-                    <Stack spacing={3}>
-                      {infoItems.map((item, index) => (
-                        <Stack
-                          direction="row"
-                          spacing={2}
-                          alignItems="center"
-                          key={index}
-                        >
-                          {item.icon}
-                          <Typography fontWeight={900} variant="body1">
-                            {item.text}
+                      <Typography
+                        paragraph
+                        color="gray"
+                        dangerouslySetInnerHTML={{
+                          __html: propertyData.description,
+                        }}
+                      />
+                      <Box marginTop={6}>
+                        <Box>
+                          <Typography fontSize="14px" fontWeight={900}>
+                            {new Date(
+                              propertyData.yearBuilt
+                            ).toLocaleDateString("en-US", {
+                              month: "long",
+                              day: "numeric",
+                              year: "numeric",
+                            })}
                           </Typography>
-                        </Stack>
-                      ))}
-                    </Stack>
-                  </Box>
-                  <Box padding={2} width={isSmallScreen ? "100%" : "70%"}>
-                    <Typography fontWeight={500} variant="h5" component="h5">
-                      Property Description
-                    </Typography>
-                    <Typography
-                      whiteSpace="pre-line"
-                      paragraph
-                      color="gray"
-                      marginTop={4}
-                    >
-                      {propertyData.description}
-                    </Typography>
-                    <Box marginTop={6}>
-                      <Box>
-                        <Typography fontSize="14px" fontWeight={900}>
-                          {new Date(propertyData.yearBuilt).toLocaleDateString(
-                            "en-US",
-                            { month: "long", day: "numeric", year: "numeric" }
-                          )}
-                        </Typography>
-                        <Typography fontSize="14px" color="gray">
-                          LISTED
-                        </Typography>
+                          <Typography fontSize="14px" color="gray">
+                            LISTED
+                          </Typography>
+                        </Box>
                       </Box>
                     </Box>
                   </Box>
                 </Box>
-              </Box>
 
-              <Box
-                width={isSmallScreen ? "100%" : "25%"}
-                marginTop={isSmallScreen ? 4 : 0}
-              >
-                <Typography
-                  marginLeft={2}
-                  fontWeight={500}
-                  variant="h5"
-                  component="h5"
+                <Box
+                  width={isSmallScreen ? "100%" : "25%"}
+                  marginTop={isSmallScreen ? 4 : 0}
                 >
-                  Latest Properties
-                </Typography>
-                <Box>
-                  <LatestProperty flexDir={"column"}></LatestProperty>
+                  <Typography
+                    fontWeight={500}
+                    variant="h5"
+                    component="h5"
+                    sx={{
+                      paddingLeft: { xs: "0px", md: "32px" },
+                      marginTop: { xs: "0px", md: 4 },
+                    }}
+                  >
+                    Latest Properties
+                  </Typography>
+                  <Box>
+                    <PropertiesSideBar />
+                  </Box>
                 </Box>
               </Box>
-            </Box>
-          </>
-        )
+            </>
+          )
+        )}
+      </Box>
+      {loading ? (
+        <Typography></Typography>
+      ) : (
+        <Box>
+          <Footer />
+        </Box>
       )}
     </Box>
   );

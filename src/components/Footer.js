@@ -9,7 +9,6 @@ export default function Footer() {
       sx={{
         backgroundColor: "#2B211F",
         color: "rgb(245, 225, 225)",
-        py: 4,
         px: { xs: 2, sm: 4, md: 12 },
         marginTop: 2,
       }}

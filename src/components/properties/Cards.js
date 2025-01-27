@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Card,
   CardContent,
@@ -7,6 +7,8 @@ import {
   Box,
   Avatar,
   Grid,
+  Button,
+  useMediaQuery,
 } from "@mui/material";
 import DirectionsCarFilledOutlinedIcon from "@mui/icons-material/DirectionsCarFilledOutlined";
 import BathtubOutlinedIcon from "@mui/icons-material/BathtubOutlined";
@@ -26,15 +28,12 @@ const formatPrice = (price) => {
 };
 
 const Cards = ({ property, index }) => {
-  const [isReadMore, setIsReadMore] = useState(false);
-
-  const toggleReadMore = () => {
-    setIsReadMore(!isReadMore);
-  };
+  const isSmallScreen = useMediaQuery("(max-width: 768px)");
   const router = useRouter();
   const handleNavigation = () => {
     router.push(`/properties/${property.slug}`);
   };
+
   const truncatedDescription =
     property.description.length > 800
       ? property.description.substring(0, 800) + "..."
@@ -44,27 +43,28 @@ const Cards = ({ property, index }) => {
     <Card
       sx={{
         display: "flex",
-        flexDirection: `${index % 2 === 0 ? "row" : "row-reverse"}`,
-        paddingX: 4,
-        paddingY: 1,
+        flexDirection: isSmallScreen
+          ? "column"
+          : `${index % 2 === 0 ? "row" : "row-reverse"}`,
+        padding: 2,
         margin: "auto",
         border: "none",
         boxShadow: "none",
-        height: "60vh",
+        height: isSmallScreen ? "auto" : "50vh",
+        maxWidth: "100%",
       }}
     >
       <Box
         sx={{
           display: "flex",
-          position: "relative",
           flexDirection: "column",
-          width: "45%",
+          width: isSmallScreen ? "100%" : "60%",
         }}
       >
         <CardContent>
           <Box display="flex" alignItems="center" mb={2}>
             <Avatar
-              src={property.userImage || ""}
+              src={property.userImage || property.imageUrl?.[0]?.URL || ""}
               alt={property.name}
               sx={{ width: 48, height: 48, mr: 2 }}
             />
@@ -92,7 +92,7 @@ const Cards = ({ property, index }) => {
             }}
           >
             <Typography variant="h5" fontWeight="bold" gutterBottom>
-              {property.address.street}, {property.address.city},{" "}
+              {property.address.street}, {property.address.city},
               {property.address.state}
             </Typography>
           </Box>
@@ -100,39 +100,39 @@ const Cards = ({ property, index }) => {
           <Typography
             variant="body2"
             color="text.secondary"
-            height="250px"
-            paragraph
             sx={{
-              whiteSpace: "pre-line",
-              overflow: "scroll",
-              position: "relative",
+              maxHeight: isSmallScreen ? "150px" : "250px",
+              overflow: "auto",
               WebkitOverflowScrolling: "touch",
-              msOverflowStyle: "none",
               scrollbarWidth: "none",
               "&::-webkit-scrollbar": {
                 display: "none",
               },
+              position: "relative",
             }}
           >
-            {isReadMore ? property.description : truncatedDescription}{" "}
-            {property.description.length > 800 && (
-              <Typography
-                component="span"
-                color="primary"
-                sx={{ cursor: "pointer", textDecoration: "underline" }}
-                onClick={toggleReadMore}
-              >
-                {isReadMore ? " less" : " more"}
-              </Typography>
-            )}
+            <span
+              dangerouslySetInnerHTML={{
+                __html: truncatedDescription,
+              }}
+            ></span>
           </Typography>
 
+          <Button
+            variant="contained"
+            color="primary"
+            border="10px solid red"
+            onClick={handleNavigation}
+            sx={{ mt: 2 }}
+          >
+            Know more
+          </Button>
+
           <Typography
-            position="absolute"
-            bottom="4%"
             variant="h4"
             fontWeight="bold"
             color="text.primary"
+            mt={2}
             gutterBottom
           >
             &#8377;{formatPrice(property.price)}
@@ -140,59 +140,75 @@ const Cards = ({ property, index }) => {
         </CardContent>
       </Box>
 
-      <Box sx={{ width: "55%", position: "relative" }}>
+      <Box
+        sx={{
+          width: isSmallScreen ? "100%" : "40%",
+          position: "relative",
+          height: isSmallScreen ? "300px" : "100%",
+        }}
+      >
         <Link href={`/properties/${property.slug}`}>
           <CardMedia
             component="img"
             image={property.imageUrl?.[0]?.URL || ""}
             alt="Property Image"
-            sx={{ borderRadius: 2, height: "100%" }}
+            sx={{
+              borderRadius: 2,
+              height: "100%",
+              width: "100%",
+              objectFit: "cover",
+            }}
           />
         </Link>
-        <Box
-          sx={{
-            position: "absolute",
-            bottom: 10,
-            right: index % 2 === 0 ? "0%" : "unset",
-            left: index % 2 !== 0 ? "0%" : "unset",
-            backgroundColor: "#EAE5D6",
-            padding: "20px 28px",
-            borderRadius: 1,
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Grid container spacing={2} alignItems="center">
-            <Grid item sx={{ display: "flex", alignItems: "center" }}>
-              <DirectionsCarFilledOutlinedIcon />
-              <Typography sx={{ marginLeft: "4px", fontWeight: "bold" }}>
-                {property.details?.noOfBedRoom || 0}
-              </Typography>
-            </Grid>
+        {!isSmallScreen ? (
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: 10,
+              right: isSmallScreen ? "unset" : index % 2 === 0 ? "0%" : "unset",
+              left: isSmallScreen ? "50%" : index % 2 !== 0 ? "0%" : "unset",
+              transform: isSmallScreen ? "translateX(-50%)" : "none",
+              backgroundColor: "#EAE5D6",
+              padding: "12px 20px",
+              borderRadius: 1,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Grid container spacing={2} alignItems="center">
+              <Grid item sx={{ display: "flex", alignItems: "center" }}>
+                <DirectionsCarFilledOutlinedIcon />
+                <Typography sx={{ marginLeft: "4px", fontWeight: "bold" }}>
+                  {property.details?.noOfBedRoom || 0}
+                </Typography>
+              </Grid>
 
-            <Grid item sx={{ paddingLeft: "8px", paddingRight: "8px" }}>
-              <Typography sx={{ color: "#888" }}>|</Typography>
-            </Grid>
+              <Grid item>
+                <Typography sx={{ color: "#888" }}>|</Typography>
+              </Grid>
 
-            <Grid item sx={{ display: "flex", alignItems: "center" }}>
-              <BathtubOutlinedIcon />
-              <Typography sx={{ marginLeft: "4px", fontWeight: "bold" }}>
-                {property.details?.noOfBathroom || 0}
-              </Typography>
-            </Grid>
+              <Grid item sx={{ display: "flex", alignItems: "center" }}>
+                <BathtubOutlinedIcon />
+                <Typography sx={{ marginLeft: "4px", fontWeight: "bold" }}>
+                  {property.details?.noOfBathroom || 0}
+                </Typography>
+              </Grid>
 
-            <Grid item sx={{ paddingLeft: "8px", paddingRight: "8px" }}>
-              <Typography sx={{ color: "#888" }}>|</Typography>
-            </Grid>
+              <Grid item>
+                <Typography sx={{ color: "#888" }}>|</Typography>
+              </Grid>
 
-            <Grid item sx={{ display: "flex", alignItems: "center" }}>
-              <AspectRatioIcon />
-              <Typography sx={{ marginLeft: "4px", fontWeight: "bold" }}>
-                {property.area?.total || 0} {property.area?.unit || "sqft"}
-              </Typography>
+              <Grid item sx={{ display: "flex", alignItems: "center" }}>
+                <AspectRatioIcon />
+                <Typography sx={{ marginLeft: "4px", fontWeight: "bold" }}>
+                  {property.area?.total || 0} {property.area?.unit || "sqft"}
+                </Typography>
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
+          </Box>
+        ) : (
+          <Box></Box>
+        )}
       </Box>
     </Card>
   );

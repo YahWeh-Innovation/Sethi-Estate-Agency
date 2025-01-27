@@ -2,11 +2,11 @@ import { Box, Typography, Button } from "@mui/material";
 
 export default function Home() {
   const imageUrl =
-    "https://res.cloudinary.com/dkoezhi9u/image/upload/v1702193748/samples/cloudinary-group.jpg";
+    "https://media.istockphoto.com/id/178988183/photo/house-in-bad-summer-thunderstorm.jpg?s=612x612&w=0&k=20&c=KAxdY1mM4H7ixKhz731XXYGf5S081bsHb-SyXfNDUdI=";
   return (
     <Box
       sx={{
-        height: "70vh",
+        height: "450px",
         backgroundImage: `url(${imageUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",

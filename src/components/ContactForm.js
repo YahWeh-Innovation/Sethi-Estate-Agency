@@ -190,7 +190,7 @@ export default function ContactForm() {
               sx={{
                 mt: 3,
                 width: "100%",
-                backgroundColor: "rgba(47, 29, 25, 1)",
+                backgroundColor: "rgba(47, 29, 25, 1) !important",
                 color: "#fff",
                 "&:hover": { backgroundColor: "#333" },
               }}
