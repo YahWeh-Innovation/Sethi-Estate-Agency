@@ -19,13 +19,13 @@ const LatestProperty = () => {
 
   const formatPrice = (price) => {
     if (price >= 10000000) {
-      return `${(price / 10000000).toFixed(1)} Cr`; // For crore
+      return `${(price / 10000000).toFixed(1)} Cr`;
     } else if (price >= 100000) {
-      return `${(price / 100000).toFixed(1)} L`; // For lakh
+      return `${(price / 100000).toFixed(1)} L`;
     } else if (price >= 1000) {
-      return `${(price / 1000).toFixed(1)} K`; // For thousand
+      return `${(price / 1000).toFixed(1)} K`;
     } else {
-      return `₹${price.toLocaleString("en-IN")}`; // For smaller amounts
+      return `₹${price.toLocaleString("en-IN")}`;
     }
   };
 
