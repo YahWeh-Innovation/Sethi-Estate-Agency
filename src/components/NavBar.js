@@ -119,7 +119,8 @@ export default function Navbar() {
           component={Link}
           href="/contact"
         >
-          <PhoneIcon /> Contact Us
+          <PhoneIcon />
+          <a href="#contact">Contact</a>
         </Button>
       </Box>
     </Box>
@@ -195,9 +196,9 @@ export default function Navbar() {
                 },
               }}
               component={Link}
-              href="/contact"
+              href="#contact"
             >
-              <PhoneIcon /> Contact
+              <PhoneIcon /> <a href="#contact">Contact</a>
             </Button>
           </Box>
 

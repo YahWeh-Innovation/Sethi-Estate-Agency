@@ -76,6 +76,7 @@ const Search = () => {
         spacing={3}
         sx={{
           flexDirection: { xs: "column", md: "row" },
+          alignItems:{xs:"", md:"center"}
         }}
       >
         <Grid item xs={12} md={3}>
@@ -83,6 +84,7 @@ const Search = () => {
             color="#2f1d19"
             fontWeight="500"
             fontSize={{ xs: "16px", md: "18px" }}
+            paddingLeft={{xs:"0px",md:"12px"}}
           >
             Location
           </Typography>
@@ -94,7 +96,7 @@ const Search = () => {
               inputProps={{ "aria-label": "Without label" }}
               sx={{
                 fontSize: "16px",
-                color: "#8f8fa5",
+                color: "white",
                 "& .MuiOutlinedInput-notchedOutline": {
                   border: "none",
                 },
@@ -115,7 +117,7 @@ const Search = () => {
             >
               <MenuItem value="">
                 <span style={{ display: "flex", alignItems: "center" }}>
-                  <LocationOnOutlinedIcon sx={{ marginRight: "8px" }} />
+                  <LocationOnOutlinedIcon sx={{ marginRight: "8px"}} />
                   Select Your City
                 </span>
               </MenuItem>
@@ -130,6 +132,7 @@ const Search = () => {
             color="#2f1d19"
             fontWeight="500"
             fontSize={{ xs: "16px", md: "18px" }}
+            paddingLeft={{xs:"0px",md:"12px"}}
           >
             Property Type
           </Typography>
@@ -171,6 +174,7 @@ const Search = () => {
             color="#2f1d19"
             fontWeight="500"
             fontSize={{ xs: "16px", md: "18px" }}
+            paddingBottom={"16px"}
           >
             Price Range
           </Typography>
