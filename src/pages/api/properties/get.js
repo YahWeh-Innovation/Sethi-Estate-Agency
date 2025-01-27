@@ -6,7 +6,16 @@ import successHelper from "../../../utils/helpers/successHelper";
 export default async function handler(req, res) {
   const {
     method,
-    query: { slug, page = 1, limit = 10, city, type, minPrice, maxPrice, latest },
+    query: {
+      slug,
+      page = 1,
+      limit = 10,
+      city,
+      type,
+      minPrice,
+      maxPrice,
+      latest,
+    },
   } = req;
 
   await dbConnect();
@@ -39,9 +48,9 @@ export default async function handler(req, res) {
             noOfProperty: latestProperties.length,
           };
 
-          return res.status(200).json(
-            successHelper("Latest properties found", { latestProperty })
-          );
+          return res
+            .status(200)
+            .json(successHelper("Latest properties found", { latestProperty }));
         } else {
           const filter = {};
           if (city) filter["address.city"] = city;
@@ -54,10 +63,10 @@ export default async function handler(req, res) {
           const properties = await Property.find(filter)
             .skip(skip)
             .limit(limitNum);
-
+          const totalproperties = await Property.find({})
           const allProperties = {
             properties: properties,
-            noOfProperty: properties.length,
+            noOfProperty: totalproperties.length,
           };
 
           return res.status(200).json(

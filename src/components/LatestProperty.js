@@ -17,6 +17,18 @@ const LatestProperty = () => {
   const [loading, setLoading] = useState(true);
   const scrollRef = useRef(null);
 
+  const formatPrice = (price) => {
+    if (price >= 10000000) {
+      return `${(price / 10000000).toFixed(1)} Cr`; // For crore
+    } else if (price >= 100000) {
+      return `${(price / 100000).toFixed(1)} L`; // For lakh
+    } else if (price >= 1000) {
+      return `${(price / 1000).toFixed(1)} K`; // For thousand
+    } else {
+      return `₹${price.toLocaleString("en-IN")}`; // For smaller amounts
+    }
+  };
+
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -69,7 +81,7 @@ const LatestProperty = () => {
             lg: "40px",
             xl: "44px",
           },
-          padding:"0px 16px"
+          padding: "0px 16px",
         }}
       >
         Latest Properties
@@ -86,7 +98,7 @@ const LatestProperty = () => {
           },
           msOverflowStyle: "none",
           scrollbarWidth: "none",
-          backgroundColor:"rgba(47, 29, 25, 1)"
+          backgroundColor: "rgba(47, 29, 25, 1)",
         }}
         ref={scrollRef}
       >
@@ -112,7 +124,7 @@ const LatestProperty = () => {
                 {property.name}
               </Typography>
               <Typography variant="body2" color="textSecondary">
-                ₹{property.price}
+              ₹ {formatPrice(property.price)}
               </Typography>
               <Typography variant="body2" color="textSecondary">
                 {property.area.total} {property.area.unit}
@@ -124,7 +136,7 @@ const LatestProperty = () => {
       <Box
         sx={{
           position: "absolute",
-          top:{xs:"-10px",md:"10px"},
+          top: { xs: "-10px", md: "10px" },
           right: "5%",
           display: "flex",
           gap: "10px",

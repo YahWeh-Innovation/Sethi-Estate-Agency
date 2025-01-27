@@ -77,7 +77,7 @@ export default function Navbar() {
         <ListItem disablePadding>
           <ListItemButton
             component={Link}
-            href="/properties"
+            href="/properties/search"
             sx={{
               "&:hover": { backgroundColor: "#f0f0f0" },
             }}

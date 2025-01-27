@@ -7,9 +7,26 @@ const ImageTile = ({ images }) => {
     const length = displayImages.length;
 
     const imageStyles = {
-      full: { width: "100%", height: "100%", objectFit: "cover", borderRadius: 2 },
-      halfLeft: { width: "100%", height: "400px", objectFit: "cover", borderTopLeftRadius: 8, borderBottomLeftRadius: 8 },
-      halfRight: { width: "100%", height: "400px", objectFit: "cover", borderTopRightRadius: 8, borderBottomRightRadius: 8 },
+      full: {
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        borderRadius: 2,
+      },
+      halfLeft: {
+        width: "100%",
+        height: "400px",
+        objectFit: "cover",
+        borderTopLeftRadius: 8,
+        borderBottomLeftRadius: 8,
+      },
+      halfRight: {
+        width: "100%",
+        height: "400px",
+        objectFit: "cover",
+        borderTopRightRadius: 8,
+        borderBottomRightRadius: 8,
+      },
       quarter: { width: "100%", height: "200px", objectFit: "cover" },
       topLeft: { borderTopLeftRadius: 8 },
       topRight: { borderTopRightRadius: 8 },
@@ -19,15 +36,32 @@ const ImageTile = ({ images }) => {
 
     switch (length) {
       case 1:
-        return <Box component="img" src={displayImages[0].URL} alt="image-0" sx={imageStyles.full} />;
+        return (
+          <Box
+            component="img"
+            src={displayImages[0].URL}
+            alt="image-0"
+            sx={imageStyles.full}
+          />
+        );
       case 2:
         return (
           <Grid container spacing={1}>
             <Grid item xs={6}>
-              <Box component="img" src={displayImages[0].URL} alt="image-0" sx={imageStyles.halfLeft} />
+              <Box
+                component="img"
+                src={displayImages[0].URL}
+                alt="image-0"
+                sx={imageStyles.halfLeft}
+              />
             </Grid>
             <Grid item xs={6}>
-              <Box component="img" src={displayImages[1].URL} alt="image-1" sx={imageStyles.halfRight} />
+              <Box
+                component="img"
+                src={displayImages[1].URL}
+                alt="image-1"
+                sx={imageStyles.halfRight}
+              />
             </Grid>
           </Grid>
         );
@@ -35,15 +69,30 @@ const ImageTile = ({ images }) => {
         return (
           <Grid container spacing={1}>
             <Grid item xs={6}>
-              <Box component="img" src={displayImages[0].URL} alt="image-0" sx={imageStyles.halfLeft} />
+              <Box
+                component="img"
+                src={displayImages[0].URL}
+                alt="image-0"
+                sx={imageStyles.halfLeft}
+              />
             </Grid>
             <Grid item xs={6}>
               <Grid container direction="column" spacing={1}>
                 <Grid item>
-                  <Box component="img" src={displayImages[1].URL} alt="image-1" sx={{ ...imageStyles.quarter, ...imageStyles.topRight }} />
+                  <Box
+                    component="img"
+                    src={displayImages[1].URL}
+                    alt="image-1"
+                    sx={{ ...imageStyles.quarter, ...imageStyles.topRight }}
+                  />
                 </Grid>
                 <Grid item>
-                  <Box component="img" src={displayImages[2].URL} alt="image-2" sx={{ ...imageStyles.quarter, ...imageStyles.bottomRight }} />
+                  <Box
+                    component="img"
+                    src={displayImages[2].URL}
+                    alt="image-2"
+                    sx={{ ...imageStyles.quarter, ...imageStyles.bottomRight }}
+                  />
                 </Grid>
               </Grid>
             </Grid>
@@ -74,7 +123,12 @@ const ImageTile = ({ images }) => {
         return (
           <Grid container spacing={1}>
             <Grid item xs={6}>
-              <Box component="img" src={displayImages[0].URL} alt="image-0" sx={imageStyles.halfLeft} />
+              <Box
+                component="img"
+                src={displayImages[0].URL}
+                alt="image-0"
+                sx={imageStyles.halfLeft}
+              />
             </Grid>
             <Grid item xs={6}>
               <Grid container spacing={1}>
@@ -99,7 +153,13 @@ const ImageTile = ({ images }) => {
     }
   };
 
-  return <Box sx={{ width: "100%", height: "420px", margin: "0 auto", borderRadius: 2 }}>{renderImages()}</Box>;
+  return (
+    <Box
+      sx={{ width: "100%", height: "420px", margin: "0 auto", borderRadius: 2 }}
+    >
+      {renderImages()}
+    </Box>
+  );
 };
 
 export default ImageTile;

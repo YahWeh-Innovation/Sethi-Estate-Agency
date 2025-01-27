@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Pagination, Box } from "@mui/material";
 
-export default function PaginationComponent({ onPageChange }) {
+export default function PaginationComponent({ onPageChange,totalPage }) {
   const [page, setPage] = useState(1);
 
   const handlePageChange = (event, value) => {
     setPage(value);
     onPageChange(value);
   };
-
   return (
     <Box
       sx={{
@@ -20,7 +19,7 @@ export default function PaginationComponent({ onPageChange }) {
       }}
     >
       <Pagination
-        count={10}
+        count={totalPage}
         page={page}
         onChange={handlePageChange}
         color="primary"
