@@ -70,23 +70,33 @@ const LatestProperty = () => {
         overflowX: "hidden",
       }}
     >
-      <Typography
-        fontWeight="bold"
-        gutterBottom
-        sx={{
-          fontSize: {
-            xs: "20px",
-            sm: "24px",
-            md: "36px",
-            lg: "40px",
-            xl: "44px",
-          },
-          padding: "0px 16px",
-        }}
-      >
-        Latest Properties
-      </Typography>
+      <Box sx={{ textAlign: "center" }}>
+        <Typography
+          fontWeight="bold"
+          gutterBottom
+          sx={{
+            fontSize: {
+              xs: "20px",
+              sm: "24px",
+              md: "36px",
+              lg: "40px",
+              xl: "44px",
+            },
+            padding: "0px 16px",
+          }}
+        >
+          Explore Our Properties
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          color="rgba(177, 140, 94, 1)"
+          sx={{ fontSize: { xs: "0.8rem", md: "1rem" } }}
+        >
+          Discover your perfect space – from dream homes to prime investments.
+        </Typography>
+      </Box>
       <Box
+        marginY={2}
         sx={{
           display: "flex",
           gap: "20px",
@@ -124,7 +134,7 @@ const LatestProperty = () => {
                 {property.name}
               </Typography>
               <Typography variant="body2" color="textSecondary">
-              ₹ {formatPrice(property.price)}
+                ₹ {formatPrice(property.price)}
               </Typography>
               <Typography variant="body2" color="textSecondary">
                 {property.area.total} {property.area.unit}
@@ -136,9 +146,9 @@ const LatestProperty = () => {
       <Box
         sx={{
           position: "absolute",
-          top: { xs: "-10px", md: "10px" },
+          top: { xs: "-10px", md: "10%" },
           right: "5%",
-          display: "flex",
+          display: { xs: "none", sm: "flex" },
           gap: "10px",
         }}
       >

@@ -43,24 +43,32 @@ const DreamProperty = () => {
   }
   return (
     <Box>
-      <Typography
-        marginX={4}
-        variant="h4"
-        component="h4"
-        fontWeight="900"
-        sx={{
-          fontSize: {
-            xs: "20px",
-            sm: "24px",
-            md: "36px",
-            lg: "40px",
-            xl: "44px",
-          },
-        }}
-      >
-        Find Your Dream Property in Your Cities
-      </Typography>
-      <Box marginY={8}>
+      <Box sx={{ textAlign: "center", paddingY: "16px" }}>
+        <Typography
+          fontWeight="bold"
+          gutterBottom
+          sx={{
+            fontSize: {
+              xs: "20px",
+              sm: "24px",
+              md: "36px",
+              lg: "40px",
+              xl: "44px",
+            },
+            padding: "0px 16px",
+          }}
+        >
+          Find Your Property
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          color="rgba(177, 140, 94, 1)"
+          sx={{ fontSize: { xs: "0.8rem", md: "1rem" } }}
+        >
+          Browse top listings and uncover the best options in your preferred locations.
+        </Typography>
+      </Box>
+      <Box marginY={1}>
         <Grid container>
           {cardData.map((data, index) => (
             <Grid item key={index} xs={12} sm={6}>
