@@ -107,19 +107,27 @@ export default function Navbar() {
 
       <Box sx={{ padding: 2 }}>
         <Button
-          fullWidth
+          variant="outlined"
           sx={{
-            backgroundColor: "#2F1D19",
+            width:"100%",
             color: "white",
+            background: "#2F1D19",
+            borderRadius: "10px",
             gap: "10px",
+            padding: "8px 16px",
             "&:hover": {
-              backgroundColor: "#145C2C",
+              borderColor: "#DDD",
             },
           }}
-          component={Link}
-          href="/contact"
+          onClick={() => {
+            const contactSection = document.getElementById("contact");
+            if (contactSection) {
+              contactSection.scrollIntoView({ behavior: "smooth" });
+            }
+          }}
         >
-          <PhoneIcon /> Contact Us
+          <PhoneIcon />
+          Contact
         </Button>
       </Box>
     </Box>
@@ -194,10 +202,15 @@ export default function Navbar() {
                   borderColor: "#DDD",
                 },
               }}
-              component={Link}
-              href="/contact"
+              onClick={() => {
+                const contactSection = document.getElementById("contact");
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
             >
-              <PhoneIcon /> Contact
+              <PhoneIcon />
+              Contact
             </Button>
           </Box>
 

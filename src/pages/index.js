@@ -30,7 +30,7 @@ const Home = () => {
       <section>
         <Blogs />
       </section>
-      <section>
+      <section id="contact">
         <ContactForm />
       </section>
       <section>

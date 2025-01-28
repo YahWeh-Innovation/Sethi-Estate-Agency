@@ -6,9 +6,9 @@ import {
 } from "@mui/icons-material";
 
 const HeroContact = () => {
-  const phoneNumber = "+919999634517";
-  const whatsappNumber = "+919999634517";
-  const email = "sethiestateagency113@gmail.com";
+  const phoneNumber = "+91-9990624500";
+  const whatsappNumber = "919990624500";
+  const email = "contactus@sethiestateagency.in";
   const handleCallClick = () => {
     window.location.href = `tel:${phoneNumber}`;
   };
@@ -75,7 +75,6 @@ const HeroContact = () => {
 
       <Button
         sx={{
-          width: "128px",
           height: "45px",
           backgroundColor: "#c3a881",
           borderRadius: "0px 0px 8px 0px",
@@ -92,17 +91,7 @@ const HeroContact = () => {
         }}
         onClick={handleEmailClick}
       >
-        <EmailIcon sx={{ width: "20px", height: "20px", color: "#2F1D19" }} />
-        <Typography
-          sx={{
-            color: "#2f1D19",
-            fontSize: "12px",
-            fontWeight: "600",
-            marginLeft: "3px",
-          }}
-        >
-          Enquire Now
-        </Typography>
+        <EmailIcon sx={{ height: "20px", color: "#2F1D19" }} />
       </Button>
     </Box>
   );

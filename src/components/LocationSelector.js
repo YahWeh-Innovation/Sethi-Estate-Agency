@@ -10,56 +10,81 @@ import {
   Grid,
 } from "@mui/material";
 import { useState } from "react";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import { useRouter } from "next/router";
 
 const Search = () => {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedPropertyType, setSelectedPropertyType] = useState("");
-  const [priceRange, setPriceRange] = useState([0, 200000000]);
+  const [sliderValue, setSliderValue] = useState([0, 100]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const router = useRouter();
 
-  const formatPrice = (value) => {
-    if (value >= 10000000) {
-      return `₹${(value / 10000000).toFixed(2)} Cr`;
-    } else if (value >= 100000) {
-      return `₹${(value / 100000).toFixed(2)} L`;
+  const priceSegments = [
+    { range: [0, 10000], start: 0, end: 20 },
+    { range: [10000, 100000], start: 20, end: 40 },
+    { range: [100000, 1000000], start: 40, end: 60 },
+    { range: [1000000, 10000000], start: 60, end: 80 },
+    { range: [10000000, 20000000], start: 80, end: 100 },
+  ];
+
+  const mapSliderToPrice = (value) => {
+    for (let segment of priceSegments) {
+      if (value >= segment.start && value <= segment.end) {
+        const percentInSegment =
+          (value - segment.start) / (segment.end - segment.start);
+        return Math.round(
+          segment.range[0] +
+            percentInSegment * (segment.range[1] - segment.range[0])
+        );
+      }
     }
-    return `₹${value.toLocaleString()}`;
+    return 0;
   };
 
-  const handleSearch = async () => {
-    try {
-      const response = await axios.get("/api/properties", {
-        params: {
-          location: selectedLocation,
-          propertyType: selectedPropertyType,
-          priceRange: selectedPriceRange,
-        },
-      });
-
-      router.push({
-        pathname: "/search-results",
-        query: {
-          location: selectedLocation,
-          propertyType: selectedPropertyType,
-          priceRange: selectedPriceRange,
-        },
-      });
-    } catch (error) {
-      console.error("Error fetching properties:", error);
+  const mapPriceToSlider = (price) => {
+    for (let segment of priceSegments) {
+      if (price >= segment.range[0] && price <= segment.range[1]) {
+        const percentInSegment =
+          (price - segment.range[0]) / (segment.range[1] - segment.range[0]);
+        return segment.start + percentInSegment * (segment.end - segment.start);
+      }
     }
+    return 0;
+  };
+
+  const handleSliderChange = (event, newValue) => {
+    setSliderValue(newValue);
   };
 
   const handleGo = () => {
     setAnchorEl(null);
-    setSelectedPriceRange(`₹${priceRange[0]} - ₹${priceRange[1]}`);
+    const minPrice = mapSliderToPrice(sliderValue[0]);
+    const maxPrice = mapSliderToPrice(sliderValue[1]);
+    setSelectedPriceRange(
+      `₹${formatPrice(minPrice)} - ₹${formatPrice(maxPrice)}`
+    );
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const formatPrice = (value) => {
+    if (value >= 10000000) return `${(value / 10000000).toFixed(2)} Cr`;
+    if (value >= 100000) return `${(value / 100000).toFixed(2)} L`;
+    return `${value.toLocaleString()}`;
+  };
+
+  const handleSearch = () => {
+    const minPrice = mapSliderToPrice(sliderValue[0]);
+    const maxPrice = mapSliderToPrice(sliderValue[1]);
+    console.log("Price Range:", `${minPrice} - ${maxPrice}`);
+    router.push({
+      pathname: "/properties/search",
+      query: {
+        location: selectedLocation || "any",
+        type: selectedPropertyType || "any",
+        priceRange: [`${minPrice}`, `${maxPrice}`],
+      },
+    });
+  };
 
   return (
     <Box
@@ -76,13 +101,15 @@ const Search = () => {
         spacing={3}
         sx={{
           flexDirection: { xs: "column", md: "row" },
+          alignItems: "center",
         }}
       >
         <Grid item xs={12} md={3}>
           <Typography
             color="#2f1d19"
             fontWeight="500"
-            fontSize={{ xs: "16px", md: "18px" }}
+            fontSize={{ xs: "16px", md: "20px" }}
+            paddingLeft={{ xs: "0px", md: "12px" }}
           >
             Location
           </Typography>
@@ -91,45 +118,27 @@ const Search = () => {
               value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
               displayEmpty
-              inputProps={{ "aria-label": "Without label" }}
               sx={{
                 fontSize: "16px",
-                color: "#8f8fa5",
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
+                color: "black",
+                "& .MuiOutlinedInput-notchedOutline": { border: "none" },
               }}
-              renderValue={(selected) =>
-                selected ? (
-                  selected
-                ) : (
-                  <span style={{ color: "#8f8fa5" }}>Select Your City</span>
-                )
-              }
             >
-              <MenuItem value="">
-                <span style={{ display: "flex", alignItems: "center" }}>
-                  <LocationOnOutlinedIcon sx={{ marginRight: "8px" }} />
-                  Select Your City
-                </span>
-              </MenuItem>
-              <MenuItem value="City1">City1</MenuItem>
-              <MenuItem value="City2">City2</MenuItem>
+              <MenuItem value="">Select Your City</MenuItem>
+              <MenuItem value="Faridabad">Faridabad</MenuItem>
+              <MenuItem value="Gurugram">Gurugram</MenuItem>
+              <MenuItem value="Noida">Noida</MenuItem>
             </Select>
           </FormControl>
         </Grid>
 
+        {/* Property Type Dropdown */}
         <Grid item xs={12} md={3}>
           <Typography
             color="#2f1d19"
             fontWeight="500"
             fontSize={{ xs: "16px", md: "18px" }}
+            paddingLeft={{ xs: "0px", md: "12px" }}
           >
             Property Type
           </Typography>
@@ -140,106 +149,70 @@ const Search = () => {
               displayEmpty
               sx={{
                 fontSize: "16px",
-                color: "#8f8fa5",
-
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
+                color: "black",
+                "& .MuiOutlinedInput-notchedOutline": { border: "none" },
               }}
-              renderValue={(selected) =>
-                selected ? (
-                  selected
-                ) : (
-                  <span style={{ color: "#8f8fa5" }}>Choose Property Type</span>
-                )
-              }
             >
               <MenuItem value="">Choose Property Type</MenuItem>
-              <MenuItem value="Type1">Type1</MenuItem>
-              <MenuItem value="Type2">Type2</MenuItem>
+              <MenuItem value="Residential">Residential</MenuItem>
+              <MenuItem value="Commercial">Commercial</MenuItem>
             </Select>
           </FormControl>
         </Grid>
+
         <Grid item xs={12} md={3}>
           <Typography
             color="#2f1d19"
             fontWeight="500"
             fontSize={{ xs: "16px", md: "18px" }}
+            paddingBottom={"12px"}
           >
             Price Range
           </Typography>
           <Button
             onClick={(event) => setAnchorEl(event.currentTarget)}
             disableRipple
-            sx={{
-              fontSize: "16px",
-              color: "#8f8fa5",
-              padding: "0",
-              textTransform: "none",
-            }}
+            sx={{ color: "black" }}
           >
             {selectedPriceRange || "Choose Price Range"}
           </Button>
           <Popover
-            id={id}
-            open={open}
+            open={Boolean(anchorEl)}
             anchorEl={anchorEl}
             onClose={() => setAnchorEl(null)}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
           >
-            <Box
-              sx={{
-                width: "300px",
-                padding: "10px",
-                borderRadius: "8px",
-                boxShadow: "0px 2px 5px rgba(0,0,0,0.2)",
-              }}
-            >
+            <Box sx={{ width: "300px", padding: "10px" }}>
               <Typography gutterBottom>
-                Range: {formatPrice(priceRange[0])} -{" "}
-                {formatPrice(priceRange[1])}
+                Range: {formatPrice(mapSliderToPrice(sliderValue[0]))} -{" "}
+                {formatPrice(mapSliderToPrice(sliderValue[1]))}
               </Typography>
               <Slider
-                value={priceRange}
-                onChange={(e, newValue) => setPriceRange(newValue)}
+                value={sliderValue}
+                onChange={handleSliderChange}
                 valueLabelDisplay="auto"
                 min={0}
-                max={200000000}
-                step={500000}
-                sx={{
-                  "& .MuiSlider-thumb": {
-                    backgroundColor: "#fff",
-                    border: "2px solid #a67c52",
-                  },
-                }}
-                valueLabelFormat={(value) => formatPrice(value)}
+                max={100}
+                step={1}
+                marks={[
+                  { value: 0, label: "0" },
+                  { value: 20, label: "10K" },
+                  { value: 40, label: "1L" },
+                  { value: 60, label: "10L" },
+                  { value: 80, label: "1Cr" },
+                  { value: 100, label: "2Cr" },
+                ]}
               />
               <Button
                 onClick={handleGo}
                 fullWidth
-                sx={{
-                  mt: 1,
-                  backgroundColor: "#a67c52",
-                  color: "#fff",
-                  "&:hover": {
-                    backgroundColor: "#8a6543",
-                  },
-                }}
+                sx={{ mt: 1, backgroundColor: "#a67c52", color: "#fff" }}
               >
                 Go
               </Button>
             </Box>
           </Popover>
         </Grid>
+
         <Grid item xs={12} md={3}>
           <Button
             onClick={handleSearch}
@@ -249,9 +222,6 @@ const Search = () => {
               color: "white",
               fontSize: "16px",
               height: "60px",
-              "&:hover": {
-                backgroundColor: "#8a6543",
-              },
             }}
           >
             Search Now

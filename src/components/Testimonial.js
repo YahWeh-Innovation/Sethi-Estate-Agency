@@ -76,14 +76,14 @@ const Testimonial = () => {
             gutterBottom
             sx={{ fontSize: { xs: "1.2rem", md: "2rem" } }}
           >
-            Few smiles and comments
+            What Our Clients Say
           </Typography>
           <Typography
             variant="subtitle1"
             color="rgba(177, 140, 94, 1)"
             sx={{ fontSize: { xs: "0.8rem", md: "1rem" } }}
           >
-            See the difference we make
+            Real Stories, Real Smiles – Experience the Impact
           </Typography>
         </Box>
 

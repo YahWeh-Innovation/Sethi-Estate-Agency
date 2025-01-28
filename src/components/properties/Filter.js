@@ -16,21 +16,54 @@ import {
 import { useTheme } from "@mui/material/styles";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
-const citiesInIndia = ["Mumbai", "Delhi", "Bangalore", "Chennai", "Kolkata"];
+const citiesInIndia = ["Gurugram", "Faridabad", "Noida"];
 const propertyTypes = ["Residential", "Commercial"];
 
+// Constants for price ranges in rupees
+const PRICE_RANGES = [
+  { min: 0, max: 10000 },           // 0 - 10K
+  { min: 10000, max: 100000 },      // 10K - 1L
+  { min: 100000, max: 1000000 },    // 1L - 10L
+  { min: 1000000, max: 10000000 },  // 10L - 1Cr
+  { min: 10000000, max: 20000000 }, // 1Cr - 2Cr
+];
+
 const valueToPrice = (value) => {
-  if (value <= 25) return 1000 + (value / 25) * 9000;
-  if (value <= 50) return 10000 + ((value - 25) / 25) * 90000;
-  if (value <= 75) return 100000 + ((value - 50) / 25) * 900000;
-  return 1000000 + ((value - 75) / 25) * 99000000;
+  // Each segment is 20% (value 0-100 split into 5 parts)
+  const segment = Math.floor(value / 20);
+  const segmentValue = value % 20;
+  
+  // If we're at the max value, return the maximum price
+  if (value === 100) return PRICE_RANGES[4].max;
+  
+  // Get the current range
+  const range = PRICE_RANGES[segment];
+  
+  // Calculate price within the segment
+  const segmentRatio = segmentValue / 20;
+  const segmentPrice = range.min + (range.max - range.min) * segmentRatio;
+  
+  return Math.round(segmentPrice);
 };
 
 const priceToValue = (price) => {
-  if (price <= 10000) return ((price - 1000) / 9000) * 25;
-  if (price <= 100000) return 25 + ((price - 10000) / 90000) * 25;
-  if (price <= 1000000) return 50 + ((price - 100000) / 900000) * 25;
-  return 75 + ((price - 1000000) / 99000000) * 25;
+  // Find which segment the price falls into
+  const segment = PRICE_RANGES.findIndex(range => price <= range.max);
+  
+  if (segment === -1) return 100; // If price is above max, return max value
+  
+  const range = PRICE_RANGES[segment];
+  const segmentRatio = (price - range.min) / (range.max - range.min);
+  
+  // Convert to slider value (each segment is 20 units wide)
+  return Math.min(segment * 20 + segmentRatio * 20, 100);
+};
+
+const formatPrice = (price) => {
+  if (price >= 10000000) return `${(price / 10000000).toFixed(2)} Cr`;
+  if (price >= 100000) return `${(price / 100000).toFixed(2)} L`;
+  if (price >= 1000) return `${(price / 1000).toFixed(2)} K`;
+  return price.toString();
 };
 
 export default function Filter({ filters, onFilterChange }) {
@@ -56,7 +89,11 @@ export default function Filter({ filters, onFilterChange }) {
   };
 
   const handleResetFilter = () => {
-    const resetFilters = { city: "", type: "", priceRange: [1000, 100000000] };
+    const resetFilters = {
+      city: "",
+      type: "",
+      priceRange: [PRICE_RANGES[0].min, PRICE_RANGES[4].max],
+    };
     setTempFilters(resetFilters);
     onFilterChange(resetFilters);
   };
@@ -67,10 +104,23 @@ export default function Filter({ filters, onFilterChange }) {
     setDrawerOpen(false);
   };
 
+  const valueLabelFormat = (value) => {
+    return formatPrice(valueToPrice(value));
+  };
+
+  const marks = [
+    { value: 0, label: '0' },
+    { value: 20, label: '10K' },
+    { value: 40, label: '1L' },
+    { value: 60, label: '10L' },
+    { value: 80, label: '1Cr' },
+    { value: 100, label: '2Cr' },
+  ];
+
   return (
     <>
       {isMobile ? (
-        <Box sx={{}}>
+        <Box>
           <IconButton color="inherit" onClick={() => setDrawerOpen(true)}>
             <FilterListIcon
               fontSize="large"
@@ -146,6 +196,8 @@ export default function Filter({ filters, onFilterChange }) {
                 ]}
                 onChange={handleSliderChange}
                 valueLabelDisplay="auto"
+                valueLabelFormat={valueLabelFormat}
+                marks={marks}
                 min={0}
                 max={100}
                 step={0.1}
@@ -216,6 +268,22 @@ export default function Filter({ filters, onFilterChange }) {
                   ))}
                 </Select>
               </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography gutterBottom>Price Range (₹)</Typography>
+              <Slider
+                value={[
+                  priceToValue(tempFilters.priceRange[0]),
+                  priceToValue(tempFilters.priceRange[1]),
+                ]}
+                onChange={handleSliderChange}
+                valueLabelDisplay="auto"
+                valueLabelFormat={valueLabelFormat}
+                marks={marks}
+                min={0}
+                max={100}
+                step={0.1}
+              />
             </Grid>
             <Grid item xs={12}>
               <Button

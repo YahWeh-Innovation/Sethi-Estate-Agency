@@ -32,14 +32,12 @@ const HeroSection = () => {
               },
             }}
           >
-            Smart Living Style
-            <br />
-            For Smart People
+            Where Smart Living
+            <br /> Meets Modern Elegance
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: 4 }}>
-            A better, healthier you! We are the best studio in the area. Our
-            studio provides you with personal training and nutrition plans, as
-            well as a variety of classes at the studio. A unique experience!
+            Discover thoughtfully curated properties that blend style, comfort,
+            and convenience—perfect for today's discerning buyers and investors.
           </Typography>
 
           <LocationSelector />

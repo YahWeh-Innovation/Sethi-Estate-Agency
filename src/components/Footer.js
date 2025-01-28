@@ -20,7 +20,7 @@ export default function Footer() {
             gutterBottom
             sx={{ fontWeight: "bold", fontSize: { xs: "16px", sm: "18px" } }}
           >
-            SETHI-ESTATE-AGENCY
+            SETHI ESTATE AGENCY
           </Typography>
           <Box>
             <Typography
@@ -31,7 +31,7 @@ export default function Footer() {
               sx={{ fontSize: { xs: "12px", sm: "14px" } }}
             >
               <LocationOn fontSize="small" sx={{ mr: 1 }} />
-              2118 Thornridge Cir. Dubai, UAE 35624
+              D-77, Sector 85, Faridabad, Haryana, 121002
             </Typography>
             <Typography
               variant="body2"
@@ -41,7 +41,12 @@ export default function Footer() {
               sx={{ fontSize: { xs: "12px", sm: "14px" } }}
             >
               <Phone fontSize="small" sx={{ mr: 1 }} />
-              +33 415 65356 - 9
+              <a
+                href="tel:+91-9990624500"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                +91-9990624500
+              </a>
             </Typography>
             <Typography
               variant="body2"
@@ -51,7 +56,12 @@ export default function Footer() {
               sx={{ fontSize: { xs: "12px", sm: "14px" } }}
             >
               <Email fontSize="small" sx={{ mr: 1 }} />
-              contact@sethi-estate-agency.com
+              <a
+                href="mailto:contactus@sethiestateagency.in"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                contactus@sethiestateagency.in
+              </a>
             </Typography>
           </Box>
         </Grid>
@@ -64,19 +74,24 @@ export default function Footer() {
             QUICK LINKS
           </Typography>
           <Box>
-            {["Home", "About", "Project", "Contact"].map((link, index) => (
+            {[
+              { label: "Home", href: "/" },
+              { label: "About Us", href: "/about" },
+              { label: "Properties", href: "/properties/search" },
+              { label: "Blogs", href: "/blogs" },
+            ].map((link, index) => (
               <Link
                 key={index}
-                href="#"
-                underline="none"
-                color="inherit"
-                sx={{
+                href={link.href}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
                   display: "block",
-                  mb: 1,
-                  fontSize: { xs: "12px", sm: "14px" },
+                  marginBottom: "8px",
+                  fontSize: "14px",
                 }}
               >
-                {link}
+                {link.label}
               </Link>
             ))}
           </Box>
@@ -91,7 +106,7 @@ export default function Footer() {
             LEGAL LINKS
           </Typography>
           <Box>
-            {["Terms", "Conditions", "Policy"].map((link, index) => (
+            {["Terms & Conditions", "Policy"].map((link, index) => (
               <Link
                 key={index}
                 href="#"
@@ -154,7 +169,7 @@ export default function Footer() {
           color: "rgba(255, 255, 255, 0.7)",
         }}
       >
-        Copyright © 2024 sethi-estate-agency.
+        Copyright © 2024 Sethi Estate Agency.
       </Typography>
     </Box>
   );

@@ -38,9 +38,7 @@ export default function ContactForm() {
       newErrors.lastName = "Last name should contain only letters";
     }
 
-    if (!formData.email.trim()) {
-      newErrors.email = "Email address is required";
-    } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+    if (formData.email && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
       newErrors.email = "Please enter a valid email address";
     }
 
@@ -107,24 +105,36 @@ export default function ContactForm() {
               height: { md: "60vh", lg: "70vh" },
               objectFit: "cover",
               borderRadius: "8px",
-              paddingY:"15px",
+              paddingY: "15px",
             }}
           />
         </Grid>
 
         <Grid item xs={12} md={6}>
           <Box sx={{ maxWidth: { xs: "100%", md: 500 }, mx: "auto" }}>
-            <Typography variant="h4" component="h1" gutterBottom>
-              Contact us
+            <Typography
+              variant="h4"
+              component="h1"
+              color="rgba(47, 29, 25, 1)"
+              gutterBottom
+              fontWeight={900}
+            >
+              Contact Us
             </Typography>
-            <Typography variant="body1" color="text.secondary" gutterBottom>
-              Turpis facilisis tempor pulvinar in lobortis ornare magna.
+            <Typography
+              variant="body1"
+              color="rgba(177, 140, 94, 1)"
+              gutterBottom
+            >
+              Looking for your dream property or have inquiries about our
+              listings? Fill out the form below, and we'll get back to you
+              promptly!
             </Typography>
             <Grid container spacing={2} sx={{ mt: 2 }}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="First name"
+                  label="First Name *"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
@@ -136,31 +146,31 @@ export default function ContactForm() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Last name"
+                  label="Last Name (Optional)"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
                   error={!!errors.lastName}
-                  helperText={errors.lastName}
+                  helperText={errors.lastName || "Optional"}
                   variant="outlined"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Email address"
+                  label="Email Address (Optional)"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   error={!!errors.email}
-                  helperText={errors.email}
+                  helperText={errors.email || "Optional"}
                   variant="outlined"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Phone number"
+                  label="Phone Number *"
                   name="number"
                   value={formData.number}
                   onChange={handleChange}
@@ -172,7 +182,7 @@ export default function ContactForm() {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  label="Description"
+                  label="What are you looking for? *"
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
@@ -191,6 +201,7 @@ export default function ContactForm() {
               sx={{
                 mt: 3,
                 width: "100%",
+                margin:"20px 0px !important",
                 backgroundColor: "rgba(47, 29, 25, 1) !important",
                 color: "#fff",
                 "&:hover": { backgroundColor: "#333" },
@@ -198,14 +209,6 @@ export default function ContactForm() {
             >
               {isSubmitting ? "Submitting..." : "Submit"}
             </Button>
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              display="block"
-              sx={{ mt: 1, textAlign: "center" }}
-            >
-              We don’t sell your email and spam.
-            </Typography>
           </Box>
         </Grid>
       </Grid>
