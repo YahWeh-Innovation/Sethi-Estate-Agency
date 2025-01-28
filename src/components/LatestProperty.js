@@ -83,6 +83,7 @@ const LatestProperty = () => {
               xl: "44px",
             },
             padding: "0px 16px",
+            marginTop:{xs:2,md:8}
           }}
         >
           Explore Our Properties

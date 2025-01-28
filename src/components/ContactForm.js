@@ -117,6 +117,7 @@ export default function ContactForm() {
               component="h1"
               color="rgba(47, 29, 25, 1)"
               gutterBottom
+              fontWeight={900}
             >
               Contact Us
             </Typography>

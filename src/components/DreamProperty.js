@@ -1,46 +1,30 @@
-import { Box, Grid, Typography, CircularProgress } from "@mui/material";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Box, Grid, Typography } from "@mui/material";
 import DreamPropertyCard from "./DreamPropertyCard";
+import { useRouter } from "next/router";
 
 const DreamProperty = () => {
-  const [cardData, setCardData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const response = await axios.get("/api/properties/getDreamProperty");
-        setCardData(response.data.successMessage.data.properties);
-      } catch (err) {
-        console.error("Error fetching properties:", err);
-        setError("Failed to load properties..");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProperties();
-  }, []);
-
-  if (loading) {
-    return (
-      <Box textAlign="center" marginY={8}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Box textAlign="center" marginY={8}>
-        <Typography variant="h6" color="error">
-          {error}
-        </Typography>
-      </Box>
-    );
-  }
+  const cardData = [
+    {
+      image: "https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=800",
+      location: "Faridabad",
+      type: "Residential",
+    },
+    {
+      image: "https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg?auto=compress&cs=tinysrgb&w=800",
+      location: "Faridabad",
+      type: "Commercial",
+    },
+    {
+      image: "https://images.pexels.com/photos/1475938/pexels-photo-1475938.jpeg?auto=compress&cs=tinysrgb&w=800",
+      location: "Gurugram",
+      type: "Residential",
+    },
+    {
+      image: "https://images.pexels.com/photos/3935354/pexels-photo-3935354.jpeg?auto=compress&cs=tinysrgb&w=800",
+      location: "Gurugram",
+      type: "Commercial",
+    },
+  ];
   return (
     <Box>
       <Box sx={{ textAlign: "center", paddingY: "16px" }}>
@@ -72,7 +56,9 @@ const DreamProperty = () => {
         <Grid container>
           {cardData.map((data, index) => (
             <Grid item key={index} xs={12} sm={6}>
-              <DreamPropertyCard cardData={data} />
+              <DreamPropertyCard
+                cardData={data}
+              />
             </Grid>
           ))}
         </Grid>
