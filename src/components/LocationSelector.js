@@ -101,7 +101,7 @@ const Search = () => {
         spacing={3}
         sx={{
           flexDirection: { xs: "column", md: "row" },
-          alignItems: "center",
+          alignItems:  { xs: "", md: "center" },
         }}
       >
         <Grid item xs={12} md={3}>
@@ -109,7 +109,7 @@ const Search = () => {
             color="#2f1d19"
             fontWeight="500"
             fontSize={{ xs: "16px", md: "20px" }}
-            paddingLeft={{ xs: "0px", md: "12px" }}
+            paddingLeft={{ xs: "12px", md: "12px" }}
           >
             Location
           </Typography>
@@ -138,7 +138,7 @@ const Search = () => {
             color="#2f1d19"
             fontWeight="500"
             fontSize={{ xs: "16px", md: "18px" }}
-            paddingLeft={{ xs: "0px", md: "12px" }}
+            paddingLeft={{ xs: "12px", md: "12px" }}
           >
             Property Type
           </Typography>
@@ -166,6 +166,7 @@ const Search = () => {
             fontWeight="500"
             fontSize={{ xs: "16px", md: "18px" }}
             paddingBottom={"12px"}
+            paddingLeft={"12px"}
           >
             Price Range
           </Typography>
