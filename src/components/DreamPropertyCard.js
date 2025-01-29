@@ -1,15 +1,16 @@
-import { Box, CardMedia, Typography } from "@mui/material";
+import { Box, CardMedia, Typography, useMediaQuery } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useRouter } from "next/router";
 
 const DreamPropertyCard = ({ cardData }) => {
   const { image, location, type } = cardData;
   const router = useRouter();
+  const isSmallScreen = useMediaQuery("(max-width: 768px)");
 
   const handleCardClick = (location, type) => {
     router.push({
       pathname: "/properties/search",
-      query: { location, type,priceRange: [0, 20000000]},
+      query: { location, type, priceRange: [0, 20000000] },
     });
   };
 
@@ -20,10 +21,10 @@ const DreamPropertyCard = ({ cardData }) => {
         position: "relative",
         cursor: "pointer",
         "&:hover .overlay": {
-          opacity: 1,
+          opacity: isSmallScreen ? 1 : 1, // Always visible on small screens
         },
         "&:hover .image": {
-          opacity: 0.7,
+          opacity: isSmallScreen ? 1 : 0.7, // No fade effect on small screens
         },
       }}
     >
@@ -49,7 +50,7 @@ const DreamPropertyCard = ({ cardData }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          opacity: 0,
+          opacity: isSmallScreen ? 1 : 0,
           transition: "opacity 0.5s ease",
           color: "white",
           textAlign: "center",

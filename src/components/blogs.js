@@ -29,7 +29,7 @@ const Blogs = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("/api/posts");
+        const response = await axios.get("/api/posts/getAll");
         setPosts(response.data);
       } catch (error) {
         console.error("Error fetching blog posts:", error);
@@ -217,7 +217,7 @@ const Blogs = () => {
                         padding: "10px",
                         borderTopLeftRadius: "5px",
                         borderTopRightRadius: "5px",
-                        opacity: 0,
+                        opacity: isMediumScreen ? 1 : 0,
                         transform: "translateY(20px)",
                         transition: "opacity 0.3s, transform 0.3s",
                       }}
