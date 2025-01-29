@@ -49,7 +49,7 @@ export default function BlogPost() {
 
       const fetchRecommendedPosts = async () => {
         try {
-          const response = await axios.get("/api/posts");
+          const response = await axios.get("/api/posts/getAll");
           const filteredPosts = response.data.filter(
             (recommendedPost) => recommendedPost.slug !== slug
           );
@@ -71,10 +71,16 @@ export default function BlogPost() {
   if (notFound) {
     return (
       <Box sx={{ textAlign: "center", padding: "50px", marginTop: "100px" }}>
-        <Typography variant="h3" sx={{ marginBottom: "20px", color: "#2F1D19" }}>
+        <Typography
+          variant="h3"
+          sx={{ marginBottom: "20px", color: "#2F1D19" }}
+        >
           404 - Page Not Found
         </Typography>
-        <Typography variant="body1" sx={{ marginBottom: "40px", color: "#8F90A6" }}>
+        <Typography
+          variant="body1"
+          sx={{ marginBottom: "40px", color: "#8F90A6" }}
+        >
           Sorry, the blog post you're looking for doesn't exist.
         </Typography>
         {latestPost && (
@@ -99,7 +105,9 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
+      <Box
+        sx={{ display: "flex", justifyContent: "center", marginTop: "50px" }}
+      >
         <CircularProgress />
       </Box>
     );
@@ -108,7 +116,14 @@ export default function BlogPost() {
   return (
     <Box>
       <Navbar />
-      <Box sx={{ padding: "20px", maxWidth: "1200px", marginTop: "64px", marginX: "auto" }}>
+      <Box
+        sx={{
+          padding: "20px",
+          maxWidth: "1400px",
+          marginY: "64px",
+          marginX: "auto",
+        }}
+      >
         <CardMedia
           component="img"
           image={post.blogImageBanner}
@@ -123,25 +138,50 @@ export default function BlogPost() {
 
         <Grid container spacing={4} sx={{ marginTop: "20px" }}>
           <Grid item xs={12} md={8}>
-            <Typography variant="h4" sx={{ fontWeight: "bold", marginBottom: "10px", color: "#2F1D19" }}>
+            <Typography
+              variant="h4"
+              sx={{
+                fontWeight: "bold",
+                marginBottom: "10px",
+                color: "#2F1D19",
+              }}
+            >
               {post.title}
             </Typography>
 
             <Box display="flex" alignItems="center">
-              <Avatar src={post.author?.profilePicture} alt={post.author?.name} sx={{ marginRight: "10px" }} />
-              <Typography variant="body1" sx={{ color: "#363A3D", fontWeight: "bold" }}>
+              <Avatar
+                src={post.author?.profilePicture}
+                alt={post.author?.name}
+                sx={{ marginRight: "10px" }}
+              />
+              <Typography
+                variant="body1"
+                sx={{ color: "#363A3D", fontWeight: "bold" }}
+              >
                 {post.author?.name}
               </Typography>
             </Box>
 
-            <Box display="flex" alignItems="center" sx={{ marginBottom: "20px", marginTop: "15px" }}>
-              <CloudUploadOutlinedIcon sx={{ color: "#D9C9AF", marginRight: "12px" }} />
-              <Typography variant="body2" color="#2F1D19">{formatDate(post.createdAt)}</Typography>
+            <Box
+              display="flex"
+              alignItems="center"
+              sx={{ marginBottom: "20px", marginTop: "15px" }}
+            >
+              <CloudUploadOutlinedIcon
+                sx={{ color: "rgb(129, 59, 44)", marginRight: "12px" }}
+              />
+              <Typography variant="body2" color="#2F1D19">
+                {formatDate(post.createdAt)}
+              </Typography>
             </Box>
 
             {post.tags && (
               <Box sx={{ marginY: "15px" }}>
-                <Typography variant="body2" sx={{ fontWeight: "bold", color: "#D9C9AF" }}>
+                <Typography
+                  variant="body1"
+                  sx={{ fontWeight: "bold", color: "rgb(129, 59, 44)" }}
+                >
                   Tags: {post.tags}
                 </Typography>
               </Box>
@@ -155,9 +195,9 @@ export default function BlogPost() {
                       lineHeight: 1.8,
                       marginBottom: "20px",
                       textAlign: "justify",
-                      color: "#8F90A6",
+                      color: "rgba(0,0,0,0.8)",
                     }}
-                    dangerouslySetInnerHTML={{ __html:item.data }}
+                    dangerouslySetInnerHTML={{ __html: item.data }}
                   />
                 ) : (
                   <CardMedia
@@ -180,7 +220,11 @@ export default function BlogPost() {
             <Box sx={{ position: "sticky", top: "20px" }}>
               {recommendedPosts.length > 0 ? (
                 recommendedPosts.map((recommendedPost) => (
-                  <Link key={recommendedPost.slug} href={`/blogs/${recommendedPost.slug}`} passHref>
+                  <Link
+                    key={recommendedPost.slug}
+                    href={`/blogs/${recommendedPost.slug}`}
+                    passHref
+                  >
                     <Card
                       sx={{
                         marginBottom: "20px",
@@ -215,16 +259,24 @@ export default function BlogPost() {
                           padding: "10px",
                           borderTopLeftRadius: "5px",
                           borderTopRightRadius: "5px",
-                          opacity: 0,
+                          opacity: {xs:1,md:0},
                           transform: "translateY(20px)",
                           transition: "opacity 0.3s, transform 0.3s",
                         }}
                       >
-                        <Typography variant="body1" sx={{ fontWeight: "bold", color: "#2F1D19" }}>
+                        <Typography
+                          variant="body1"
+                          sx={{ fontWeight: "bold", color: "#2F1D19" }}
+                        >
                           {recommendedPost.title}
                         </Typography>
                         <Box display="flex" alignItems="center">
-                          <CloudUploadOutlinedIcon sx={{ color: "#D9C9AF", marginRight: "5px" }} />
+                          <CloudUploadOutlinedIcon
+                            sx={{
+                              color: "rgb(129, 59, 44)",
+                              marginRight: "5px",
+                            }}
+                          />
                           <Typography variant="body2" sx={{ color: "#2F1D19" }}>
                             {formatDate(recommendedPost.createdAt)}
                           </Typography>
@@ -242,7 +294,9 @@ export default function BlogPost() {
           </Grid>
         </Grid>
       </Box>
-      <Footer />
+      <Box>
+        <Footer />
+      </Box>
     </Box>
   );
 }

@@ -86,8 +86,6 @@ export default function Search() {
     setFilters(defaultFilters);
     setPage(1);
     setFilterKey((prevKey) => prevKey + 1);
-
-    // Clear the URL query parameters
     router.replace(
       {
         pathname: router.pathname,
@@ -100,7 +98,6 @@ export default function Search() {
   const handlePageChange = (newPage) => {
     setPage(newPage);
 
-    // Update page query in the URL dynamically
     router.replace(
       {
         pathname: router.pathname,
