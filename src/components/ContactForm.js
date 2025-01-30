@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Box, Grid, TextField, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Grid,
+  TextField,
+  Typography,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 import axios from "axios";
 
 export default function ContactForm() {
@@ -38,7 +45,10 @@ export default function ContactForm() {
       newErrors.lastName = "Last name should contain only letters";
     }
 
-    if (formData.email && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+    if (
+      formData.email &&
+      !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)
+    ) {
       newErrors.email = "Please enter a valid email address";
     }
 
@@ -201,13 +211,28 @@ export default function ContactForm() {
               sx={{
                 mt: 3,
                 width: "100%",
-                margin:"20px 0px !important",
+                margin: "20px 0px !important",
                 backgroundColor: "rgba(47, 29, 25, 1) !important",
-                color: "#fff",
+                color: "white",
                 "&:hover": { backgroundColor: "#333" },
+                position: "relative",
               }}
             >
-              {isSubmitting ? "Submitting..." : "Submit"}
+              {isSubmitting ? (
+                <>
+                  <CircularProgress
+                    size={20}
+                    alignItems="center"
+                    justifyContent="center"
+                    sx={{ color: "white !important", marginRight: 2 }}
+                  />
+                  <Typography sx={{ color: "white" }}>
+                    Submitting...
+                  </Typography>
+                </>
+              ) : (
+                "Submit"
+              )}
             </Button>
           </Box>
         </Grid>
