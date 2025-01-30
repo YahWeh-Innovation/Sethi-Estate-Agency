@@ -93,7 +93,7 @@ const LatestProperty = () => {
           color="rgba(177, 140, 94, 1)"
           sx={{ fontSize: { xs: "0.8rem", md: "1rem" } }}
         >
-          Discover your perfect space – from dream homes to prime investments.
+          Discover your perfect space – from dream homes to prime investments
         </Typography>
       </Box>
       <Box

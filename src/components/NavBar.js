@@ -77,7 +77,7 @@ export default function Navbar() {
         <ListItem disablePadding>
           <ListItemButton
             component={Link}
-            href="/properties/search"
+            href="/properties"
             sx={{
               "&:hover": { backgroundColor: "#f0f0f0" },
             }}
@@ -181,7 +181,7 @@ export default function Navbar() {
             <Button color="inherit" component={Link} href="/about">
               About Us
             </Button>
-            <Button color="inherit" component={Link} href="/properties/search">
+            <Button color="inherit" component={Link} href="/properties">
               Properties
             </Button>
             <Button color="inherit" component={Link} href="/blogs">

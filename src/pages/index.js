@@ -10,10 +10,6 @@ import Footer from "../components/Footer";
 const Home = () => {
   return (
     <div className="scrollable-content">
-      <Head>
-        <title>Sethi Estate Agency</title>
-        <meta name="description" content="Sethi Estate Agency" />
-      </Head>
       <Header />
       <section id="hero">
         <HeroSection />

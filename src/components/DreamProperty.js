@@ -49,7 +49,7 @@ const DreamProperty = () => {
           color="rgba(177, 140, 94, 1)"
           sx={{ fontSize: { xs: "0.8rem", md: "1rem" } }}
         >
-          Browse top listings and uncover the best options in your preferred locations.
+          Browse top listings and uncover the best options in your preferred locations
         </Typography>
       </Box>
       <Box marginY={1}>

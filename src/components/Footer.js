@@ -77,7 +77,7 @@ export default function Footer() {
             {[
               { label: "Home", href: "/" },
               { label: "About Us", href: "/about" },
-              { label: "Properties", href: "/properties/search" },
+              { label: "Properties", href: "/properties" },
               { label: "Blogs", href: "/blogs" },
             ].map((link, index) => (
               <Link
@@ -106,7 +106,7 @@ export default function Footer() {
             LEGAL LINKS
           </Typography>
           <Box>
-            {["Terms & Conditions", "Policy"].map((link, index) => (
+            {["Terms & Conditions", "Privacy Policy"].map((link, index) => (
               <Link
                 key={index}
                 href="#"
@@ -169,7 +169,7 @@ export default function Footer() {
           color: "rgba(255, 255, 255, 0.7)",
         }}
       >
-        Copyright © 2024 Sethi Estate Agency.
+        Copyright © 2024 Sethi Estate Agency
       </Typography>
     </Box>
   );

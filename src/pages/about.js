@@ -17,7 +17,6 @@ const AboutUs = () => {
           margin: "64px auto",
         }}
       >
-        {/* Header Section */}
         <Typography
           variant="h4"
           fontWeight="bold"
@@ -26,7 +25,7 @@ const AboutUs = () => {
             fontSize: { xs: "1.75rem", sm: "2rem", md: "2.5rem" },
           }}
         >
-          About us
+          About Us
         </Typography>
         <Typography
           variant="h5"
@@ -48,6 +47,7 @@ const AboutUs = () => {
             color: "text.secondary",
             fontSize: { xs: "0.875rem", sm: "1rem" },
             px: { xs: 2, sm: 3, md: 0 },
+            textAlign:"start"
           }}
         >
           Real estate is an imperishable asset, ever increasing in value. It is
