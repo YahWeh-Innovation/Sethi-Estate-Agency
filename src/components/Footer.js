@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Grid, Typography, Link, IconButton } from "@mui/material";
 import { Email, Phone, LocationOn } from "@mui/icons-material";
-import { Facebook, Twitter, YouTube, LinkedIn } from "@mui/icons-material";
+import { Facebook, Instagram, YouTube, LinkedIn } from "@mui/icons-material";
 
 export default function Footer() {
   return (
@@ -133,25 +133,29 @@ export default function Footer() {
           </Typography>
           <Box display="flex" gap={2}>
             <IconButton
-              href="#"
+              target="_blank"
+              href="https://www.facebook.com/share/1DoZ4SNSZk/"
               sx={{ color: "inherit", fontSize: { xs: "18px", sm: "24px" } }}
             >
               <Facebook />
             </IconButton>
             <IconButton
-              href="#"
+              target="_blank"
+              href="https://www.instagram.com/sethi_estate_agency?igsh=a2V3bTFyNW1iazJo"
               sx={{ color: "inherit", fontSize: { xs: "18px", sm: "24px" } }}
             >
-              <Twitter />
+              <Instagram />
             </IconButton>
             <IconButton
-              href="#"
+              target="_blank"
+              href="https://www.youtube.com/channel/UC92Qj9NNxopwCuPltUH0cWA"
               sx={{ color: "inherit", fontSize: { xs: "18px", sm: "24px" } }}
             >
               <YouTube />
             </IconButton>
             <IconButton
-              href="#"
+              target="_blank"
+              href="https://www.linkedin.com/in/karan-sethi-b0000b34a/"
               sx={{ color: "inherit", fontSize: { xs: "18px", sm: "24px" } }}
             >
               <LinkedIn />

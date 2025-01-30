@@ -149,20 +149,6 @@ export default function BlogPost() {
               {post.title}
             </Typography>
 
-            <Box display="flex" alignItems="center">
-              <Avatar
-                src={post.author?.profilePicture}
-                alt={post.author?.name}
-                sx={{ marginRight: "10px" }}
-              />
-              <Typography
-                variant="body1"
-                sx={{ color: "#363A3D", fontWeight: "bold" }}
-              >
-                {post.author?.name}
-              </Typography>
-            </Box>
-
             <Box
               display="flex"
               alignItems="center"
@@ -175,17 +161,6 @@ export default function BlogPost() {
                 {formatDate(post.createdAt)}
               </Typography>
             </Box>
-
-            {post.tags && (
-              <Box sx={{ marginY: "15px" }}>
-                <Typography
-                  variant="body1"
-                  sx={{ fontWeight: "bold", color: "rgb(129, 59, 44)" }}
-                >
-                  Tags: {post.tags}
-                </Typography>
-              </Box>
-            )}
 
             {post.content.map((item, index) => (
               <Box key={index}>

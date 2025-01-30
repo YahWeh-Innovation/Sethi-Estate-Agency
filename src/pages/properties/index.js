@@ -17,7 +17,7 @@ export default function Search() {
   const [filters, setFilters] = useState({
     city: location || "",
     type: type || "",
-    priceRange: priceRange || [0, 20000000],
+    priceRange: priceRange || [0, 2000000000],
   });
 
   const [page, setPage] = useState(1);

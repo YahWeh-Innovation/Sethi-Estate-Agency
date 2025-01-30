@@ -19,51 +19,38 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 const citiesInIndia = ["Gurugram", "Faridabad", "Noida"];
 const propertyTypes = ["Residential", "Commercial"];
 
-// Constants for price ranges in rupees
 const PRICE_RANGES = [
-  { min: 0, max: 10000 },           // 0 - 10K
-  { min: 10000, max: 100000 },      // 10K - 1L
-  { min: 100000, max: 1000000 },    // 1L - 10L
-  { min: 1000000, max: 10000000 },  // 10L - 1Cr
-  { min: 10000000, max: 20000000 }, // 1Cr - 2Cr
+  { min: 0, max: 5000000 },           
+  { min: 5000000, max: 10000000 },    
+  { min: 10000000, max: 50000000 },   
+  { min: 50000000, max: 100000000 }, 
+  { min: 100000000, max: 2000000000 }
 ];
 
 const valueToPrice = (value) => {
-  // Each segment is 20% (value 0-100 split into 5 parts)
   const segment = Math.floor(value / 20);
   const segmentValue = value % 20;
-  
-  // If we're at the max value, return the maximum price
+
   if (value === 100) return PRICE_RANGES[4].max;
-  
-  // Get the current range
+
   const range = PRICE_RANGES[segment];
-  
-  // Calculate price within the segment
   const segmentRatio = segmentValue / 20;
-  const segmentPrice = range.min + (range.max - range.min) * segmentRatio;
-  
-  return Math.round(segmentPrice);
+  return Math.round(range.min + (range.max - range.min) * segmentRatio);
 };
 
 const priceToValue = (price) => {
-  // Find which segment the price falls into
   const segment = PRICE_RANGES.findIndex(range => price <= range.max);
-  
-  if (segment === -1) return 100; // If price is above max, return max value
-  
+  if (segment === -1) return 100;
+
   const range = PRICE_RANGES[segment];
   const segmentRatio = (price - range.min) / (range.max - range.min);
-  
-  // Convert to slider value (each segment is 20 units wide)
   return Math.min(segment * 20 + segmentRatio * 20, 100);
 };
 
 const formatPrice = (price) => {
-  if (price >= 10000000) return `${(price / 10000000).toFixed(2)} Cr`;
+  if (price >= 100000000) return `${(price / 10000000).toFixed(2)} Cr`;
   if (price >= 100000) return `${(price / 100000).toFixed(2)} L`;
-  if (price >= 1000) return `${(price / 1000).toFixed(2)} K`;
-  return price.toString();
+  return `${price.toLocaleString()}`;
 };
 
 export default function Filter({ filters, onFilterChange }) {
@@ -109,12 +96,12 @@ export default function Filter({ filters, onFilterChange }) {
   };
 
   const marks = [
-    { value: 0, label: '0' },
-    { value: 20, label: '10K' },
-    { value: 40, label: '1L' },
-    { value: 60, label: '10L' },
-    { value: 80, label: '1Cr' },
-    { value: 100, label: '2Cr' },
+    { value: 0, label: "0" },
+    { value: 20, label: "50L" },
+    { value: 40, label: "1Cr" },
+    { value: 60, label: "5Cr" },
+    { value: 80, label: "10Cr" },
+    { value: 100, label: "200Cr" },
   ];
 
   return (
@@ -234,68 +221,25 @@ export default function Filter({ filters, onFilterChange }) {
           <Typography variant="h6" textAlign="center" gutterBottom>
             Filters
           </Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <FormControl fullWidth>
-                <InputLabel>Location (City)</InputLabel>
-                <Select
-                  name="city"
-                  value={tempFilters.city}
-                  onChange={handleChange}
-                  label="Location (City)"
-                >
-                  {citiesInIndia.map((city) => (
-                    <MenuItem key={city} value={city}>
-                      {city}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl fullWidth>
-                <InputLabel>Type</InputLabel>
-                <Select
-                  name="type"
-                  value={tempFilters.type}
-                  onChange={handleChange}
-                  label="Type"
-                >
-                  {propertyTypes.map((type) => (
-                    <MenuItem key={type} value={type}>
-                      {type}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography gutterBottom>Price Range (₹)</Typography>
-              <Slider
-                value={[
-                  priceToValue(tempFilters.priceRange[0]),
-                  priceToValue(tempFilters.priceRange[1]),
-                ]}
-                onChange={handleSliderChange}
-                valueLabelDisplay="auto"
-                valueLabelFormat={valueLabelFormat}
-                marks={marks}
-                min={0}
-                max={100}
-                step={0.1}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleModifyClick}
-                fullWidth
-              >
-                Apply Filters
-              </Button>
-            </Grid>
+          <Grid item xs={12}>
+            <Typography gutterBottom>Price Range (₹)</Typography>
+            <Slider
+              value={[
+                priceToValue(tempFilters.priceRange[0]),
+                priceToValue(tempFilters.priceRange[1]),
+              ]}
+              onChange={handleSliderChange}
+              valueLabelDisplay="auto"
+              valueLabelFormat={valueLabelFormat}
+              marks={marks}
+              min={0}
+              max={100}
+              step={0.1}
+            />
           </Grid>
+          <Button variant="contained" color="primary" onClick={handleModifyClick} fullWidth>
+            Apply Filters
+          </Button>
         </Box>
       </Drawer>
     </>

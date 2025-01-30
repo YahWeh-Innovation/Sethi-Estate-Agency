@@ -36,22 +36,7 @@ const AboutUs = () => {
             fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" },
           }}
         >
-          Your journey to homeownership starts here.
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            mb: { xs: 3, sm: 4, md: 5 },
-            maxWidth: "700px",
-            margin: "auto",
-            color: "text.secondary",
-            fontSize: { xs: "0.875rem", sm: "1rem" },
-            px: { xs: 2, sm: 3, md: 0 },
-            textAlign:"start"
-          }}
-        >
-          Real estate is an imperishable asset, ever increasing in value. It is
-          the most solid security that the investor can acquire.
+          Your journey to homeownership starts here
         </Typography>
 
         {/* Main Content Grid */}
@@ -72,6 +57,19 @@ const AboutUs = () => {
                 maxWidth: { xs: "100%", md: "90%" },
               }}
             >
+              <Typography
+                variant="body1"
+                sx={{
+                  textAlign: "left",
+                  lineHeight: 1.8,
+                  color: "text.secondary",
+                  fontSize: { xs: "0.875rem", sm: "1rem" },
+                  mb: 2,
+                }}
+              >
+                Real estate is an imperishable asset, ever increasing in value.
+                It is the most solid security that the investor can acquire.
+              </Typography>
               <Typography
                 variant="body1"
                 sx={{
