@@ -161,7 +161,7 @@ export default function ContactForm() {
                   value={formData.lastName}
                   onChange={handleChange}
                   error={!!errors.lastName}
-                  helperText={errors.lastName || "Optional"}
+                  helperText={errors.lastName}
                   variant="outlined"
                 />
               </Grid>
@@ -173,7 +173,7 @@ export default function ContactForm() {
                   value={formData.email}
                   onChange={handleChange}
                   error={!!errors.email}
-                  helperText={errors.email || "Optional"}
+                  helperText={errors.email}
                   variant="outlined"
                 />
               </Grid>
