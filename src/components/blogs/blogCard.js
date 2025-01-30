@@ -64,16 +64,7 @@ const BlogCard = ({ blog }) => {
         }}
       >
         <CardContent>
-          <Box display="flex" alignItems="center" mb={2}>
-            <Avatar
-              src={blog.author.profilePicture || ""}
-              alt={blog.author.name}
-              sx={{ width: 48, height: 48, mr: 2 }}
-            />
-            <Typography variant="h6" fontWeight="bold">
-              {blog.author.name}
-            </Typography>
-          </Box>
+
           <Link href={`/blogs/${blog.slug}`}>
             <Typography variant="h5" fontWeight="bold" gutterBottom>
               {blog.title}

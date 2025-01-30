@@ -10,7 +10,7 @@ const DreamPropertyCard = ({ cardData }) => {
   const handleCardClick = (location, type) => {
     router.push({
       pathname: "/properties",
-      query: { location, type, priceRange: [0, 20000000] },
+      query: { location, type, priceRange: [0, 2000000000] },
     });
   };
 

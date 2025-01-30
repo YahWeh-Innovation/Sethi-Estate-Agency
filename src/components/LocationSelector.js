@@ -21,11 +21,11 @@ const Search = () => {
   const router = useRouter();
 
   const priceSegments = [
-    { range: [0, 10000], start: 0, end: 20 },
-    { range: [10000, 100000], start: 20, end: 40 },
-    { range: [100000, 1000000], start: 40, end: 60 },
-    { range: [1000000, 10000000], start: 60, end: 80 },
-    { range: [10000000, 20000000], start: 80, end: 100 },
+    { range: [0, 5000000], start: 0, end: 20 }, 
+    { range: [5000000, 10000000], start: 20, end: 40 },
+    { range: [10000000, 50000000], start: 40, end: 60 }, 
+    { range: [50000000, 100000000], start: 60, end: 80 }, 
+    { range: [100000000, 2000000000], start: 80, end: 100 }, 
   ];
 
   const mapSliderToPrice = (value) => {
@@ -57,6 +57,12 @@ const Search = () => {
     setSliderValue(newValue);
   };
 
+  const formatPrice = (value) => {
+    if (value >= 100000000) return `${(value / 10000000).toFixed(2)} Cr`;
+    if (value >= 100000) return `${(value / 100000).toFixed(2)} L`;
+    return `${value.toLocaleString()}`;
+  };
+
   const handleGo = () => {
     setAnchorEl(null);
     const minPrice = mapSliderToPrice(sliderValue[0]);
@@ -66,16 +72,9 @@ const Search = () => {
     );
   };
 
-  const formatPrice = (value) => {
-    if (value >= 10000000) return `${(value / 10000000).toFixed(2)} Cr`;
-    if (value >= 100000) return `${(value / 100000).toFixed(2)} L`;
-    return `${value.toLocaleString()}`;
-  };
-
   const handleSearch = () => {
     const minPrice = mapSliderToPrice(sliderValue[0]);
     const maxPrice = mapSliderToPrice(sliderValue[1]);
-    console.log("Price Range:", `${minPrice} - ${maxPrice}`);
     router.push({
       pathname: "/properties",
       query: {
@@ -96,21 +95,9 @@ const Search = () => {
         backdropFilter: "blur(20px)",
       }}
     >
-      <Grid
-        container
-        spacing={{ xs: 1, md: 2 }}
-        sx={{
-          flexDirection: { xs: "column", md: "row" },
-          alignItems: { xs: "", md: "center" },
-        }}
-      >
+      <Grid container spacing={{ xs: 1, md: 2 }}>
         <Grid item xs={12} md={3}>
-          <Typography
-            color="#2f1d19"
-            fontWeight="500"
-            fontSize={{ xs: "16px", md: "20px" }}
-            paddingLeft={{ xs: "4px", md: "4px" }}
-          >
+          <Typography fontWeight="500" fontSize={{ xs: "16px", md: "20px" }}>
             Location
           </Typography>
           <FormControl fullWidth>
@@ -122,9 +109,7 @@ const Search = () => {
                 fontSize: "16px",
                 color: "black",
                 "& .MuiOutlinedInput-notchedOutline": { border: "none" },
-                "& .MuiSelect-select": {
-                  padding: "10px 4px",
-                },
+                "& .MuiSelect-select": { padding: "10px 4px" },
               }}
             >
               <MenuItem value="">Select Your City</MenuItem>
@@ -136,12 +121,7 @@ const Search = () => {
         </Grid>
 
         <Grid item xs={12} md={3}>
-          <Typography
-            color="#2f1d19"
-            fontWeight="500"
-            fontSize={{ xs: "16px", md: "18px" }}
-            paddingLeft={{ xs: "4px", md: "4px" }}
-          >
+          <Typography fontWeight="500" fontSize={{ xs: "16px", md: "18px" }}>
             Property Type
           </Typography>
           <FormControl fullWidth>
@@ -153,9 +133,7 @@ const Search = () => {
                 fontSize: "16px",
                 color: "black",
                 "& .MuiOutlinedInput-notchedOutline": { border: "none" },
-                "& .MuiSelect-select": {
-                  padding: "10px 4px",
-                },
+                "& .MuiSelect-select": { padding: "10px 4px" },
               }}
             >
               <MenuItem value="">Choose Property Type</MenuItem>
@@ -165,16 +143,8 @@ const Search = () => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} md={3} sx={{ maxWidth: "200px" }}>
-          {" "}
-          {/* Restrict Grid width */}
-          <Typography
-            color="#2f1d19"
-            fontWeight="500"
-            fontSize={{ xs: "16px", md: "18px" }}
-            paddingBottom={"4px"}
-            paddingLeft={"4px"}
-          >
+        <Grid item xs={12} md={3}>
+          <Typography fontWeight="500" fontSize={{ xs: "16px", md: "18px" }}>
             Price Range
           </Typography>
           <Button
@@ -189,8 +159,8 @@ const Search = () => {
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
-              maxWidth: "100%", // Ensure button doesn't stretch beyond Grid width
-              display: "block", // Prevent unintended flex behavior
+              maxWidth: "100%",
+              display: "block",
             }}
           >
             {selectedPriceRange || "Choose Price Range"}
@@ -213,11 +183,7 @@ const Search = () => {
                 max={100}
                 step={1}
               />
-              <Button
-                onClick={handleGo}
-                fullWidth
-                sx={{ mt: 1, backgroundColor: "#a67c52", color: "#fff" }}
-              >
+              <Button onClick={handleGo} fullWidth sx={{ mt: 1, backgroundColor: "#a67c52", color: "#fff" }}>
                 Go
               </Button>
             </Box>
@@ -225,16 +191,7 @@ const Search = () => {
         </Grid>
 
         <Grid item xs={12} md={3}>
-          <Button
-            onClick={handleSearch}
-            fullWidth
-            sx={{
-              backgroundColor: "#a67c52",
-              color: "white",
-              fontSize: "16px",
-              height: "60px",
-            }}
-          >
+          <Button onClick={handleSearch} fullWidth sx={{ backgroundColor: "#a67c52", color: "white", fontSize: "16px", height: "60px" }}>
             Search Now
           </Button>
         </Grid>
