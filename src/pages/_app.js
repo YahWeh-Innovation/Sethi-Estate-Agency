@@ -14,9 +14,10 @@ export default function MyApp(props) {
     <AppCacheProvider {...props}>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <title>Sethi Estate Agency</title>
+        <meta name="description" content="Sethi Estate Agency" />
       </Head>
       <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>

@@ -77,7 +77,7 @@ const Search = () => {
     const maxPrice = mapSliderToPrice(sliderValue[1]);
     console.log("Price Range:", `${minPrice} - ${maxPrice}`);
     router.push({
-      pathname: "/properties/search",
+      pathname: "/properties",
       query: {
         location: selectedLocation || "any",
         type: selectedPropertyType || "any",
@@ -98,10 +98,10 @@ const Search = () => {
     >
       <Grid
         container
-        spacing={3}
+        spacing={{ xs: 1, md: 2 }}
         sx={{
           flexDirection: { xs: "column", md: "row" },
-          alignItems:  { xs: "", md: "center" },
+          alignItems: { xs: "", md: "center" },
         }}
       >
         <Grid item xs={12} md={3}>
@@ -109,7 +109,7 @@ const Search = () => {
             color="#2f1d19"
             fontWeight="500"
             fontSize={{ xs: "16px", md: "20px" }}
-            paddingLeft={{ xs: "12px", md: "12px" }}
+            paddingLeft={{ xs: "4px", md: "4px" }}
           >
             Location
           </Typography>
@@ -122,6 +122,9 @@ const Search = () => {
                 fontSize: "16px",
                 color: "black",
                 "& .MuiOutlinedInput-notchedOutline": { border: "none" },
+                "& .MuiSelect-select": {
+                  padding: "10px 4px",
+                },
               }}
             >
               <MenuItem value="">Select Your City</MenuItem>
@@ -132,13 +135,12 @@ const Search = () => {
           </FormControl>
         </Grid>
 
-        {/* Property Type Dropdown */}
         <Grid item xs={12} md={3}>
           <Typography
             color="#2f1d19"
             fontWeight="500"
             fontSize={{ xs: "16px", md: "18px" }}
-            paddingLeft={{ xs: "12px", md: "12px" }}
+            paddingLeft={{ xs: "4px", md: "4px" }}
           >
             Property Type
           </Typography>
@@ -151,6 +153,9 @@ const Search = () => {
                 fontSize: "16px",
                 color: "black",
                 "& .MuiOutlinedInput-notchedOutline": { border: "none" },
+                "& .MuiSelect-select": {
+                  padding: "10px 4px",
+                },
               }}
             >
               <MenuItem value="">Choose Property Type</MenuItem>
@@ -160,20 +165,33 @@ const Search = () => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={3} sx={{ maxWidth: "200px" }}>
+          {" "}
+          {/* Restrict Grid width */}
           <Typography
             color="#2f1d19"
             fontWeight="500"
             fontSize={{ xs: "16px", md: "18px" }}
-            paddingBottom={"12px"}
-            paddingLeft={"12px"}
+            paddingBottom={"4px"}
+            paddingLeft={"4px"}
           >
             Price Range
           </Typography>
           <Button
             onClick={(event) => setAnchorEl(event.currentTarget)}
             disableRipple
-            sx={{ color: "black" }}
+            sx={{
+              color: "black",
+              textTransform: "none",
+              fontSize: "16px",
+              fontWeight: "400",
+              paddingLeft: "4px",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              maxWidth: "100%", // Ensure button doesn't stretch beyond Grid width
+              display: "block", // Prevent unintended flex behavior
+            }}
           >
             {selectedPriceRange || "Choose Price Range"}
           </Button>
@@ -194,14 +212,6 @@ const Search = () => {
                 min={0}
                 max={100}
                 step={1}
-                marks={[
-                  { value: 0, label: "0" },
-                  { value: 20, label: "10K" },
-                  { value: 40, label: "1L" },
-                  { value: 60, label: "10L" },
-                  { value: 80, label: "1Cr" },
-                  { value: 100, label: "2Cr" },
-                ]}
               />
               <Button
                 onClick={handleGo}

@@ -9,7 +9,7 @@ const DreamPropertyCard = ({ cardData }) => {
 
   const handleCardClick = (location, type) => {
     router.push({
-      pathname: "/properties/search",
+      pathname: "/properties",
       query: { location, type, priceRange: [0, 20000000] },
     });
   };
@@ -21,10 +21,10 @@ const DreamPropertyCard = ({ cardData }) => {
         position: "relative",
         cursor: "pointer",
         "&:hover .overlay": {
-          opacity: isSmallScreen ? 1 : 1, // Always visible on small screens
+          opacity: isSmallScreen ? 1 : 1,
         },
         "&:hover .image": {
-          opacity: isSmallScreen ? 1 : 0.7, // No fade effect on small screens
+          opacity: isSmallScreen ? 1 : 0.7,
         },
       }}
     >
@@ -50,7 +50,7 @@ const DreamPropertyCard = ({ cardData }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          opacity: isSmallScreen ? 1 : 0,
+          opacity: { xs: 1, md: 0 },
           transition: "opacity 0.5s ease",
           color: "white",
           textAlign: "center",
