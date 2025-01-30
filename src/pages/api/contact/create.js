@@ -1,45 +1,50 @@
 import Contact from "../../../models/Contact";
 import dbConnect from "../../../lib/dbConnect";
-import { validateContact } from "../../../utils/validators/createContactUsValidator";
 import successHelper from "../../../utils/helpers/successHelper";
 import errorHelper from "../../../utils/helpers/errorHelper";
+import nodemailer from "nodemailer";
+
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
-    try {
-      const { error } = validateContact(req.body);
-      if (error) {
-        return res.status(400).json({
-          success: false,
-          message: error.details.map((detail) => detail.message).join(", "),
-        });
-      }
+  console.log("Request received:", req.method);
 
-      await dbConnect();
-      const name = `${req.body.firstName} ${req?.body?.lastName || ""}`;
+  if (req.method !== "POST") {
+    console.log("Invalid request method:", req.method);
+    return res.status(405).json(errorHelper("Method Not Allowed"));
+  }
 
-      const contact = new Contact({
-        name: name,
-        email: req.body.email,
-        number: req.body.number,
-        description: req.body.description,
-      });
+  try {
+    await dbConnect(); 
+    const name = `${req.body.firstName} ${req.body.lastName || ""}`;
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,  
+        pass: process.env.EMAIL_PASS,   // Add app password not email password
+      },
+    });
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.RECEIVER_EMAIL,
+      subject: `New Contact Form Submission from ${name}`,
+      text: `Name: ${name}\nPhone Number: ${req.body.number}\nMessage: ${req.body.description}`,
+    });
 
-      const savedContact = await contact.save();
+    const contact = new Contact({
+      name,
+      email: req?.body?.email || "",
+      number: req?.body?.number,
+      description: req.body.description,
+    });
 
-      res
-        .status(201)
-        .json(successHelper("Contact saved successfully", savedContact));
-    } catch (error) {
-      res
-        .status(500)
-        .json(
-          errorHelper(
-            `An error occurred while saving the contact : ${error.message} `
-          )
-        );
-    }
-  } else {
-    res.status(405).json(errorHelper("Method Not Allowed"));
+    const savedContact = await contact.save();
+    console.log("Contact saved:", savedContact);
+
+    res.status(201).json(successHelper("Contact saved successfully", savedContact));
+  } catch (error) {
+    console.error("Error occurred:", error);
+    res.status(500).json(
+      errorHelper(`An error occurred: ${error.message}`)
+    );
   }
 }
