@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, Grid, Typography, Link, IconButton } from "@mui/material";
+import { Box, Grid, Typography, Link, IconButton, Stack } from "@mui/material";
 import { Email, Phone, LocationOn } from "@mui/icons-material";
 import { Facebook, Instagram, YouTube, LinkedIn } from "@mui/icons-material";
-
+import TermsAndConditionsPopup from "./TermsAndConditionsPopup";
+import PrivacyPolicyPopup from "./PrivacyPolicyPopop";
 export default function Footer() {
   return (
     <Box
@@ -89,9 +90,19 @@ export default function Footer() {
                   display: "block",
                   marginBottom: "8px",
                   fontSize: "14px",
+                  "&:hover": { color: "gray" },
                 }}
               >
-                {link.label}
+                <Typography
+                  sx={{
+                    cursor: "pointer",
+                    color: "inherit",
+                    fontSize: "14px",
+                    "&:hover": { color: "gray" },
+                  }}
+                >
+                  {link.label}
+                </Typography>
               </Link>
             ))}
           </Box>
@@ -105,23 +116,17 @@ export default function Footer() {
           >
             LEGAL LINKS
           </Typography>
-          <Box>
-            {["Terms & Conditions", "Privacy Policy"].map((link, index) => (
-              <Link
-                key={index}
-                href="#"
-                underline="none"
-                color="inherit"
-                sx={{
-                  display: "block",
-                  mb: 1,
-                  fontSize: { xs: "12px", sm: "14px" },
-                }}
-              >
-                {link}
-              </Link>
-            ))}
-          </Box>
+          <Stack
+            direction={{ xs: "column", md: "column" }}
+            justifyContent="start"
+            alignItems="start"
+            spacing={1}
+            fontSize={"14px"}
+            sx={{ flexGrow: 1 }}
+          >
+            <TermsAndConditionsPopup />
+            <PrivacyPolicyPopup />
+          </Stack>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Typography
