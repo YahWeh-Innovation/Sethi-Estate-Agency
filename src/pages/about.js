@@ -36,20 +36,18 @@ const AboutUs = () => {
             fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" },
           }}
         >
-          Your journey to homeownership starts here
+          A Trusted Name in Real Estate Since 1991
         </Typography>
 
-        {/* Main Content Grid */}
         <Grid
           container
           spacing={{ xs: 4, sm: 3 }}
           sx={{
             justifyContent: "center",
-            alignItems: "flex-start",
+            alignItems: "start",
             paddingBottom: "80px",
           }}
         >
-          {/* Text Content */}
           <Grid item xs={12} md={6}>
             <Box
               sx={{
@@ -67,8 +65,12 @@ const AboutUs = () => {
                   mb: 2,
                 }}
               >
-                Real estate is an imperishable asset, ever increasing in value.
-                It is the most solid security that the investor can acquire.
+                At Sethi Estate Agency, we believe that real estate is more than
+                just buying and selling properties—it’s about building dreams,
+                securing futures, and making investments that last a lifetime.
+                Since 1991, we have been a trusted name in the real estate
+                industry, helping individuals, families, and businesses find the
+                perfect property that aligns with their needs and aspirations.
               </Typography>
               <Typography
                 variant="body1"
@@ -80,12 +82,22 @@ const AboutUs = () => {
                   mb: 2,
                 }}
               >
-                Welcome to Sethi Estate Agency, where we serve as your trusted
-                matchmaker in securing your ideal property. We offer a carefully
-                curated portfolio of properties, tailored to your distinct
-                preferences, ensuring a seamless buying and selling experience.
-                From luxury residences to cozy retreats, our expert team pairs
-                you with your ideal space.
+                With expertise in residential, commercial, and industrial real
+                estate, we offer a carefully curated selection of properties
+                that cater to a diverse range of requirements. Whether you’re
+                looking for a luxurious home, a strategic commercial space, or a
+                valuable industrial plot, we provide seamless end-to-end
+                solutions that ensure smooth transactions with complete
+                transparency.
+              </Typography>
+
+              <Typography
+                variant="h6"
+                textAlign={"start"}
+                fontWeight="bold"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Why Choose Us?
               </Typography>
               <Typography
                 variant="body1"
@@ -94,15 +106,43 @@ const AboutUs = () => {
                   lineHeight: 1.8,
                   color: "text.secondary",
                   fontSize: { xs: "0.875rem", sm: "1rem" },
-                  mb: 2,
+                  mb: 1,
                 }}
               >
-                Founded in year, with over years of experience navigating the
-                dynamic landscape of the property market, Sethi Estate Agency
-                has established itself as a beacon of trust, expertise and
-                excellence. Our unparalleled local knowledge and commitment to
-                exceptional customer service guarantee that the properties we
-                represent get the spotlight they deserve.
+                <strong sx={{ color: "black !important" }}>
+                  Unmatched Market Expertise –
+                </strong>{" "}
+                With decades of experience, we have an in-depth understanding of
+                property trends, pricing, and legal frameworks, ensuring you
+                make informed and profitable decisions.
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  textAlign: "left",
+                  lineHeight: 1.8,
+                  color: "text.secondary",
+                  fontSize: { xs: "0.875rem", sm: "1rem" },
+                  mb: 1,
+                }}
+              >
+                <strong>Personalized Service –</strong> Every client is unique,
+                and so are their needs. Our dedicated team works closely with
+                you to find the best property that fits your vision.
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  textAlign: "left",
+                  lineHeight: 1.8,
+                  color: "text.secondary",
+                  fontSize: { xs: "0.875rem", sm: "1rem" },
+                  mb: 1,
+                }}
+              >
+                <strong>Integrity & Trust –</strong> Built on a foundation of
+                honesty and professionalism, we prioritize our clients'
+                interests, ensuring fair dealings and genuine advice.
               </Typography>
               <Typography
                 variant="body1"
@@ -113,15 +153,27 @@ const AboutUs = () => {
                   fontSize: { xs: "0.875rem", sm: "1rem" },
                 }}
               >
-                Our growth is fueled by a culture that values integrity,
-                tradition, and customer satisfaction. Guided by these
-                principles, we strive to become your go-to experts in
-                residential sales, market analysis, and commercial investments
+                <strong>Strong Network & Visibility –</strong> We connect buyers
+                and sellers through our extensive network, ensuring your
+                property gets the attention it deserves. Over the years, we have
+                helped countless clients turn their real estate goals into
+                reality. As a company rooted in trust, integrity, and
+                excellence, we continue to set new benchmarks in the industry,
+                making property transactions effortless and rewarding for all.
+              </Typography>
+              <Typography
+                variant="h6"
+                textAlign={"start"}
+                fontWeight="bold"
+                color="rgba(47, 29, 25, 1)"
+                sx={{ mt: 3 }}
+              >
+                Let’s find the perfect property for you—because your dream space
+                is just a decision away!
               </Typography>
             </Box>
           </Grid>
 
-          {/* Images Section */}
           <Grid item xs={12} md={6}>
             <Box
               sx={{
@@ -131,10 +183,10 @@ const AboutUs = () => {
                 width: { xs: "280px", sm: "300px", md: "320px" },
                 height: { xs: "auto", md: "380px" },
                 margin: "auto",
+
                 gap: { xs: "2rem", md: 0 },
               }}
             >
-              {/* First Image Component */}
               <Box
                 sx={{
                   position: { xs: "relative", md: "absolute" },
@@ -145,7 +197,7 @@ const AboutUs = () => {
               >
                 <Box
                   component="img"
-                  src="https://images.pexels.com/photos/1182825/pexels-photo-1182825.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  src="https://res.cloudinary.com/dfmjqggmq/image/upload/v1738310100/WhatsApp_Image_2025-01-31_at_12.26.06_iu0tv9.jpg"
                   alt="Vikrant Rana"
                   sx={{
                     width: { xs: "240px", sm: "260px", md: "280px" },
@@ -163,7 +215,7 @@ const AboutUs = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  Vikrant Rana
+                  Anmol Bansal
                 </Typography>
                 <Typography
                   variant="body2"
@@ -172,11 +224,10 @@ const AboutUs = () => {
                     color: "text.secondary",
                   }}
                 >
-                  Co-Founder
+                  (Director)
                 </Typography>
               </Box>
 
-              {/* Second Image Component */}
               <Box
                 sx={{
                   position: { xs: "relative", md: "absolute" },
@@ -188,7 +239,7 @@ const AboutUs = () => {
               >
                 <Box
                   component="img"
-                  src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  src="https://res.cloudinary.com/dfmjqggmq/image/upload/v1738310100/WhatsApp_Image_2025-01-31_at_12.27.38_gtsvrv.jpg"
                   alt="Eshant Ujjwal"
                   sx={{
                     border: "3px solid white",
@@ -207,7 +258,7 @@ const AboutUs = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  Eshant Ujjwal
+                  Karan Sethi
                 </Typography>
                 <Typography
                   variant="body2"
@@ -216,7 +267,7 @@ const AboutUs = () => {
                     color: "text.secondary",
                   }}
                 >
-                  Co-Founder
+                  (Director)
                 </Typography>
               </Box>
             </Box>

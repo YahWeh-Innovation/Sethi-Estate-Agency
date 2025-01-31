@@ -5,8 +5,6 @@ import {
   CardMedia,
   Typography,
   Box,
-  Avatar,
-  Button,
   useMediaQuery,
 } from "@mui/material";
 import Link from "next/link";
@@ -63,7 +61,7 @@ const BlogCard = ({ blog }) => {
           overflowY: "hidden",
         }}
       >
-        <CardContent>
+        <CardContent sx={{paddingY:"0px !important"}}>
 
           <Link href={`/blogs/${blog.slug}`}>
             <Typography variant="h5" fontWeight="bold" gutterBottom>
@@ -75,9 +73,9 @@ const BlogCard = ({ blog }) => {
             variant="body2"
             color="text.secondary"
             sx={{
-              maxHeight: isSmallScreen ? "150px" : "350px",
+              maxHeight: isSmallScreen ? "150px" : "400px",
               overflow: "auto",
-              paddingBottom: "2%",
+              paddingBottom: "1%",
               WebkitOverflowScrolling: "touch",
               scrollbarWidth: "none",
               "&::-webkit-scrollbar": { display: "none" },
